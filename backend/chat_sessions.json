@@ -626,14 +626,312 @@
                 ],
                 "confidence": "low",
                 "timestamp": "2025-08-03T14:34:49.490422+00:00"
+            },
+            {
+                "role": "user",
+                "content": "what is this PDF about",
+                "timestamp": "2025-08-03T21:25:58.380939+00:00"
+            },
+            {
+                "role": "assistant",
+                "content": "This PDF is about transportation management, covering topics such as modal and carrier selection, transportation documents (including the bill of lading and freight claims), making and receiving shipments, and transportation service quality.",
+                "sources": [
+                    {
+                        "source": "DSC2101-AY24-Tri3-Topic09.pdf",
+                        "content": "s basically standardized by law and greatly simplifies\nthe transportation manager\u2019s job because it specifies exactly the duties of the shipper and carrier.\n13\nSIT Internal\nDocumentation\n(3 of 4)\n\u2022 Fre..."
+                    },
+                    {
+                        "source": "DSC2101-AY24-Tri3-Topic09.pdf",
+                        "content": "age Express\n11\nSIT Internal\nDocumentation\n(1 of 4)\n\u2022 Documentation\n\u2013 Serves practical function\n\u2022 What, where, and how\nmuch is being\ntransported\n\u2013 Potentially provides legal\nrecourse\n\u2013 Transportation d..."
+                    },
+                    {
+                        "source": "DSC2101-AY24-Tri3-Topic09.pdf",
+                        "content": "nt\ninvolves making and receiving shipments\n\u2013 Refers to tactical planning and control of shipments along\nwith supervision of freight loading and unloading\n16\nSIT Internal\nMaking and Receiving Shipments..."
+                    },
+                    {
+                        "source": "DSC2101-AY24-Tri3-Topic09.pdf",
+                        "content": "SIT Internal\nWarehouse and Transportation Systems\nDSC2101 \u2013 Topic09\nTransportation Management\nSIT Internal\nLearning Objectives\n9.1 To understand the definition of transportation management\n9.2 To lear..."
+                    },
+                    {
+                        "source": "DSC2101-AY24-Tri3-Topic09.pdf",
+                        "content": "pper\u2019s\nfreight with a carrier to\ntransport it\n\u2013 Can handle both LTL\nand TL\n\u2013 Those handling LTL\nshipments consolidate\nthem and then give to\nmotor carriers, freight\nforwarders, or shippers\u2019\nassociation..."
+                    }
+                ],
+                "confidence": "low",
+                "timestamp": "2025-08-03T21:25:59.439760+00:00"
+            },
+            {
+                "role": "user",
+                "content": "Elaborate further on transportation documents",
+                "timestamp": "2025-08-03T21:26:27.199760+00:00"
+            },
+            {
+                "role": "assistant",
+                "content": "Based on the provided text, there are three main transportation documents:  the bill of lading (the most important, serving as a delivery receipt and contract specifying shipper and carrier duties), the freight bill (an invoice from the carrier requesting payment), and freight claims (documents notifying carriers of delivery problems like damage or delays).  The text also mentions that  documentation in general serves a practical function in specifying what, where, and how much is being transported, and potentially provides legal recourse.",
+                "sources": [
+                    {
+                        "source": "DSC2101-AY24-Tri3-Topic09.pdf",
+                        "content": "age Express\n11\nSIT Internal\nDocumentation\n(1 of 4)\n\u2022 Documentation\n\u2013 Serves practical function\n\u2022 What, where, and how\nmuch is being\ntransported\n\u2013 Potentially provides legal\nrecourse\n\u2013 Transportation d..."
+                    },
+                    {
+                        "source": "DSC2101-AY24-Tri3-Topic09.pdf",
+                        "content": "s basically standardized by law and greatly simplifies\nthe transportation manager\u2019s job because it specifies exactly the duties of the shipper and carrier.\n13\nSIT Internal\nDocumentation\n(3 of 4)\n\u2022 Fre..."
+                    },
+                    {
+                        "source": "DSC2101-AY24-Tri3-Topic09.pdf",
+                        "content": "pper\u2019s\nfreight with a carrier to\ntransport it\n\u2013 Can handle both LTL\nand TL\n\u2013 Those handling LTL\nshipments consolidate\nthem and then give to\nmotor carriers, freight\nforwarders, or shippers\u2019\nassociation..."
+                    },
+                    {
+                        "source": "DSC2101-AY24-Tri3-Topic09.pdf",
+                        "content": "SIT Internal\nWarehouse and Transportation Systems\nDSC2101 \u2013 Topic09\nTransportation Management\nSIT Internal\nLearning Objectives\n9.1 To understand the definition of transportation management\n9.2 To lear..."
+                    },
+                    {
+                        "source": "DSC2101-AY24-Tri3-Topic09.pdf",
+                        "content": "nt\ninvolves making and receiving shipments\n\u2013 Refers to tactical planning and control of shipments along\nwith supervision of freight loading and unloading\n16\nSIT Internal\nMaking and Receiving Shipments..."
+                    }
+                ],
+                "confidence": "low",
+                "timestamp": "2025-08-03T21:26:28.363548+00:00"
+            },
+            {
+                "role": "user",
+                "content": "What are INCO terms",
+                "timestamp": "2025-08-03T21:27:26.422450+00:00"
+            },
+            {
+                "role": "assistant",
+                "content": "This question cannot be answered from the given source.",
+                "sources": [
+                    {
+                        "source": "DSC2101-AY24-Tri3-Topic09.pdf",
+                        "content": "nt\ninvolves making and receiving shipments\n\u2013 Refers to tactical planning and control of shipments along\nwith supervision of freight loading and unloading\n16\nSIT Internal\nMaking and Receiving Shipments..."
+                    },
+                    {
+                        "source": "DSC2101-AY24-Tri3-Topic09.pdf",
+                        "content": "SIT Internal\nWarehouse and Transportation Systems\nDSC2101 \u2013 Topic09\nTransportation Management\nSIT Internal\nLearning Objectives\n9.1 To understand the definition of transportation management\n9.2 To lear..."
+                    },
+                    {
+                        "source": "DSC2101-AY24-Tri3-Topic09.pdf",
+                        "content": "pper\u2019s\nfreight with a carrier to\ntransport it\n\u2013 Can handle both LTL\nand TL\n\u2013 Those handling LTL\nshipments consolidate\nthem and then give to\nmotor carriers, freight\nforwarders, or shippers\u2019\nassociation..."
+                    },
+                    {
+                        "source": "DSC2101-AY24-Tri3-Topic09.pdf",
+                        "content": "s basically standardized by law and greatly simplifies\nthe transportation manager\u2019s job because it specifies exactly the duties of the shipper and carrier.\n13\nSIT Internal\nDocumentation\n(3 of 4)\n\u2022 Fre..."
+                    },
+                    {
+                        "source": "DSC2101-AY24-Tri3-Topic09.pdf",
+                        "content": "lved\nin other operations of\nthe firm:\n\u2013 Marketing\n\u2013 Manufacturing\n\u2013 Outbound shipping\n\u2013 Purchasing\n4\nSIT Internal\nModal and Carrier Selection\n(1 of 2)\n\u2022 Two-step process\n1. Determine appropriate mode(..."
+                    }
+                ],
+                "confidence": "low",
+                "timestamp": "2025-08-03T21:27:27.001909+00:00"
+            },
+            {
+                "role": "user",
+                "content": "What is this PDF about",
+                "timestamp": "2025-08-03T21:27:39.158050+00:00"
+            },
+            {
+                "role": "assistant",
+                "content": "Based on the provided text, the PDF is about Open Source Software best practices and supply chain risk management.",
+                "sources": [
+                    {
+                        "source": "Open_Source_Software_Best_Practices_and_Supply_Chain_Risk_Management.pdf",
+                        "content": "ource Software\u201d. In: Man-\nagement Science 1. URL: https://pubsonline.informs.org/doi/\nabs/10.1287/mnsc.1070.0748.\nVarian, Hal R. et al. (Dec. 2003). Linux Adoption in the Public Sector: An Eco-\nnomic ..."
+                    },
+                    {
+                        "source": "Open_Source_Software_Best_Practices_and_Supply_Chain_Risk_Management.pdf",
+                        "content": "ntureBeat. URL: https://venturebeat.com/2021/04/\n13/synopsys-84-of-codebases-contain-an-open-source-\nvulnerability/.\nHackerone (Jan. 2024). What Is Vulnerability Assessment? Benefits, Tools, and\nProce..."
+                    },
+                    {
+                        "source": "Open_Source_Software_Best_Practices_and_Supply_Chain_Risk_Management.pdf",
+                        "content": "sp.org/www-project-\ntop-ten/.Accessed:2024-03-05.\nZorz,Zeljka(2020).Numberofopensourcevulnerabilitiessurgedin2019.https:\n//www.helpnetsecurity.com/2020/03/13/open-source-\nvulnerabilities-2019/.Accesse..."
+                    },
+                    {
+                        "source": "Open_Source_Software_Best_Practices_and_Supply_Chain_Risk_Management.pdf",
+                        "content": "tps://www.forbes.com/sites/\nadrianbridgwater/2019/09/07/the-impact-of-the-tech-\ngiants-on-open-source/(visitedon09/07/2019).\nHabusha, David (2019). Personal Communication. Vice President, WhiteSource...."
+                    },
+                    {
+                        "source": "Open_Source_Software_Best_Practices_and_Supply_Chain_Risk_Management.pdf",
+                        "content": "olicies-Article-0619.pdf.\nMishra, Devsena (Oct. 2023). \u201cWhat is \u2018Dependency Hell\u2019?\u201d In: Medium. Ac-\ncessed:Insertcurrentdatehere.\nSpringett, Steve (n.d.). Component Analysis. https://owasp.org/www-\nco..."
+                    }
+                ],
+                "confidence": "low",
+                "timestamp": "2025-08-03T21:27:39.878224+00:00"
+            },
+            {
+                "role": "user",
+                "content": "elaborate further on Open Source Software",
+                "timestamp": "2025-08-03T21:28:01.278559+00:00"
+            },
+            {
+                "role": "assistant",
+                "content": "Based on the provided text, open source software (OSS) is widely used, with 84% of codebases containing OSS vulnerabilities (Sawers, 2021).  The Apache License is the most popular OSS license (Murray, 2022).  Larger organizations are more likely to have internal legal teams familiar with OSS licensing than smaller organizations (OpenLogic, 2023).  Risks associated with OSS include legal problems if license requirements aren't met (Mathpati, 2023), necessitating tools like Black Duck Protex, FOSSA, and FOSSology for management and compliance (The Linux Foundation, 2024).  The documents also mention the concept of a Software Bill of Materials (SBOM) for component transparency.",
+                "sources": [
+                    {
+                        "source": "Open_Source_Software_Best_Practices_and_Supply_Chain_Risk_Management.pdf",
+                        "content": "onent Transparency: Es-\ntablishing a Common Software Bill of Materials (SBOM) - Second Edition.\nWorkingGroupReport.NationalTelecommunicationsandInformationAdmin-\nistration.URL:https://www.ntia.gov/fil..."
+                    },
+                    {
+                        "source": "Open_Source_Software_Best_Practices_and_Supply_Chain_Risk_Management.pdf",
+                        "content": "olicies-Article-0619.pdf.\nMishra, Devsena (Oct. 2023). \u201cWhat is \u2018Dependency Hell\u2019?\u201d In: Medium. Ac-\ncessed:Insertcurrentdatehere.\nSpringett, Steve (n.d.). Component Analysis. https://owasp.org/www-\nco..."
+                    },
+                    {
+                        "source": "Open_Source_Software_Best_Practices_and_Supply_Chain_Risk_Management.pdf",
+                        "content": "s, make up the remaining 22% of open source components\n(Murray,2022).\nThe Apache License is the most popular OSS license, with 30% of all OSS\nprojectsusingit(Murray,2022).\nLarger organisations (>5000 ..."
+                    },
+                    {
+                        "source": "Open_Source_Software_Best_Practices_and_Supply_Chain_Risk_Management.pdf",
+                        "content": "sp.org/www-project-\ntop-ten/.Accessed:2024-03-05.\nZorz,Zeljka(2020).Numberofopensourcevulnerabilitiessurgedin2019.https:\n//www.helpnetsecurity.com/2020/03/13/open-source-\nvulnerabilities-2019/.Accesse..."
+                    },
+                    {
+                        "source": "Open_Source_Software_Best_Practices_and_Supply_Chain_Risk_Management.pdf",
+                        "content": "ly chain, whilst also bene-\nfitingorganisationsofallsizesandsectorsthatuseOSScomponents.\n50\nReferences\nOpenLogic (2023). 2023 State of Open Source Report. Perforce Software, Inc.\nRetrieved from https:..."
+                    }
+                ],
+                "confidence": "low",
+                "timestamp": "2025-08-03T21:28:02.886249+00:00"
+            },
+            {
+                "role": "user",
+                "content": "what is this pdf about",
+                "timestamp": "2025-08-03T21:35:30.492945+00:00"
+            },
+            {
+                "role": "assistant",
+                "content": "Based on the provided text, the PDF is about Open Source Software Best Practices and Supply Chain Risk Management.",
+                "sources": [
+                    {
+                        "source": "Open_Source_Software_Best_Practices_and_Supply_Chain_Risk_Management.pdf",
+                        "content": "ource Software\u201d. In: Man-\nagement Science 1. URL: https://pubsonline.informs.org/doi/\nabs/10.1287/mnsc.1070.0748.\nVarian, Hal R. et al. (Dec. 2003). Linux Adoption in the Public Sector: An Eco-\nnomic ..."
+                    },
+                    {
+                        "source": "Open_Source_Software_Best_Practices_and_Supply_Chain_Risk_Management.pdf",
+                        "content": "ntureBeat. URL: https://venturebeat.com/2021/04/\n13/synopsys-84-of-codebases-contain-an-open-source-\nvulnerability/.\nHackerone (Jan. 2024). What Is Vulnerability Assessment? Benefits, Tools, and\nProce..."
+                    },
+                    {
+                        "source": "Open_Source_Software_Best_Practices_and_Supply_Chain_Risk_Management.pdf",
+                        "content": "sp.org/www-project-\ntop-ten/.Accessed:2024-03-05.\nZorz,Zeljka(2020).Numberofopensourcevulnerabilitiessurgedin2019.https:\n//www.helpnetsecurity.com/2020/03/13/open-source-\nvulnerabilities-2019/.Accesse..."
+                    },
+                    {
+                        "source": "Open_Source_Software_Best_Practices_and_Supply_Chain_Risk_Management.pdf",
+                        "content": "tps://www.forbes.com/sites/\nadrianbridgwater/2019/09/07/the-impact-of-the-tech-\ngiants-on-open-source/(visitedon09/07/2019).\nHabusha, David (2019). Personal Communication. Vice President, WhiteSource...."
+                    },
+                    {
+                        "source": "Open_Source_Software_Best_Practices_and_Supply_Chain_Risk_Management.pdf",
+                        "content": "olicies-Article-0619.pdf.\nMishra, Devsena (Oct. 2023). \u201cWhat is \u2018Dependency Hell\u2019?\u201d In: Medium. Ac-\ncessed:Insertcurrentdatehere.\nSpringett, Steve (n.d.). Component Analysis. https://owasp.org/www-\nco..."
+                    }
+                ],
+                "confidence": "low",
+                "timestamp": "2025-08-03T21:35:32.268711+00:00"
+            },
+            {
+                "role": "user",
+                "content": "explain both pdfs",
+                "timestamp": "2025-08-03T21:35:48.018816+00:00"
+            },
+            {
+                "role": "assistant",
+                "content": "The first PDF, `DSC2101-AY24-Tri3-Topic09.pdf`, focuses on transportation documentation and shipment management.  It details various documents like bills of lading (crucial legal contracts specifying carrier and shipper duties), freight bills (carrier invoices), and freight claims (documents for notifying carriers of delivery issues).  It also discusses shipment consolidation to reduce costs and concepts like demurrage and detention (penalties for delayed railcar or truck release).  The document covers shipment planning, control, loading, unloading, and tracking.\n\nThe second PDF, `Open_Source_Software_Best_Practices_and_Supply_Chain_Risk_Management.pdf`, is about open-source software,  its risks, and best practices including the use of Software Bills of Materials (SBOMs).  This PDF contains a list of citations related to open-source software, vulnerability management, and risk assessment.  The provided text does not offer details about the content of these cited sources.",
+                "sources": [
+                    {
+                        "source": "DSC2101-AY24-Tri3-Topic09.pdf",
+                        "content": "age Express\n11\nSIT Internal\nDocumentation\n(1 of 4)\n\u2022 Documentation\n\u2013 Serves practical function\n\u2022 What, where, and how\nmuch is being\ntransported\n\u2013 Potentially provides legal\nrecourse\n\u2013 Transportation d..."
+                    },
+                    {
+                        "source": "DSC2101-AY24-Tri3-Topic09.pdf",
+                        "content": "s basically standardized by law and greatly simplifies\nthe transportation manager\u2019s job because it specifies exactly the duties of the shipper and carrier.\n13\nSIT Internal\nDocumentation\n(3 of 4)\n\u2022 Fre..."
+                    },
+                    {
+                        "source": "Open_Source_Software_Best_Practices_and_Supply_Chain_Risk_Management.pdf",
+                        "content": "olicies-Article-0619.pdf.\nMishra, Devsena (Oct. 2023). \u201cWhat is \u2018Dependency Hell\u2019?\u201d In: Medium. Ac-\ncessed:Insertcurrentdatehere.\nSpringett, Steve (n.d.). Component Analysis. https://owasp.org/www-\nco..."
+                    },
+                    {
+                        "source": "Open_Source_Software_Best_Practices_and_Supply_Chain_Risk_Management.pdf",
+                        "content": "onent Transparency: Es-\ntablishing a Common Software Bill of Materials (SBOM) - Second Edition.\nWorkingGroupReport.NationalTelecommunicationsandInformationAdmin-\nistration.URL:https://www.ntia.gov/fil..."
+                    },
+                    {
+                        "source": "DSC2101-AY24-Tri3-Topic09.pdf",
+                        "content": "nt\ninvolves making and receiving shipments\n\u2013 Refers to tactical planning and control of shipments along\nwith supervision of freight loading and unloading\n16\nSIT Internal\nMaking and Receiving Shipments..."
+                    }
+                ],
+                "confidence": "low",
+                "timestamp": "2025-08-03T21:35:49.912393+00:00"
             }
         ],
         "created_at": "2025-08-03T12:01:41.308560+00:00",
         "title": "Meaning of SBOM"
     },
     "39066146-0b80-48a7-8cc2-c6e166515e20": {
-        "messages": [],
+        "messages": [
+            {
+                "role": "user",
+                "content": "what is oss",
+                "timestamp": "2025-08-03T18:33:09.905083+00:00"
+            },
+            {
+                "role": "assistant",
+                "content": "Based on the provided text, OSS stands for open-source software.",
+                "sources": [
+                    {
+                        "source": "Open_Source_Software_Best_Practices_and_Supply_Chain_Risk_Management.pdf",
+                        "content": ": The interviewees were asked about their strate-\ngies for OSS licensing and the tools they utilise to manage OSS projects,\nvulnerabilities,anddependencymanagementeffectively.\n5. Community Engagement:..."
+                    },
+                    {
+                        "source": "Open_Source_Software_Best_Practices_and_Supply_Chain_Risk_Management.pdf",
+                        "content": "e engagement with the OSS community to attract new talent,\n4\nlevel the competitive playing field, foster innovation, improve reputation,\nandensurehigh-qualityOSScomponentsandasustainableOSSecosystem.\n..."
+                    },
+                    {
+                        "source": "Open_Source_Software_Best_Practices_and_Supply_Chain_Risk_Management.pdf",
+                        "content": "ot reliant on an individual developer\u2019s discretion.\nThis shift would transfer the decision-making process from the developer to the\norganisation, shifting the burden of responsibility from the develop..."
+                    },
+                    {
+                        "source": "Open_Source_Software_Best_Practices_and_Supply_Chain_Risk_Management.pdf",
+                        "content": "ives to get a broad view of OSS within different organisations. Our\ntotalinterviewcountwaseight.\nTo find a broad range of interviewee, from varying backgrounds and sectors,\nwe connected with people on..."
+                    },
+                    {
+                        "source": "Open_Source_Software_Best_Practices_and_Supply_Chain_Risk_Management.pdf",
+                        "content": "backtotheOSScommunity,exploreifindustry-specificguidanceis\nneeded for managing OSS components, assessing the impacts of community en-\ngagement on OSS quality and security, and formulating standardised..."
+                    }
+                ],
+                "confidence": "low",
+                "timestamp": "2025-08-03T18:33:11.559183+00:00"
+            },
+            {
+                "role": "user",
+                "content": "what else can you tell me about oss",
+                "timestamp": "2025-08-03T18:33:21.823705+00:00"
+            },
+            {
+                "role": "assistant",
+                "content": "Based on the provided text, OSS (Open Source Software) adoption differs from proprietary software because it's stored in public repositories, accessible to anyone, and often developed by a community.  The quality can vary significantly, necessitating evaluation methods like C-OSSM, N-OSSM, QSOS, OpenBRR, and E-OSS.  However, the interviewed individuals were unfamiliar with these models.  A Linux Foundation survey indicated that 69% of organizations with OSS policies found them effective in managing risk and improving security.  The report recommends establishing an internal OSS policy, but cautions against being overly prescriptive.  The report also highlights the importance of community engagement to attract talent, foster innovation, and improve reputation.  Tooling to automate OSS management is also recommended.",
+                "sources": [
+                    {
+                        "source": "Open_Source_Software_Best_Practices_and_Supply_Chain_Risk_Management.pdf",
+                        "content": ": The interviewees were asked about their strate-\ngies for OSS licensing and the tools they utilise to manage OSS projects,\nvulnerabilities,anddependencymanagementeffectively.\n5. Community Engagement:..."
+                    },
+                    {
+                        "source": "Open_Source_Software_Best_Practices_and_Supply_Chain_Risk_Management.pdf",
+                        "content": "e engagement with the OSS community to attract new talent,\n4\nlevel the competitive playing field, foster innovation, improve reputation,\nandensurehigh-qualityOSScomponentsandasustainableOSSecosystem.\n..."
+                    },
+                    {
+                        "source": "Open_Source_Software_Best_Practices_and_Supply_Chain_Risk_Management.pdf",
+                        "content": "ives to get a broad view of OSS within different organisations. Our\ntotalinterviewcountwaseight.\nTo find a broad range of interviewee, from varying backgrounds and sectors,\nwe connected with people on..."
+                    },
+                    {
+                        "source": "Open_Source_Software_Best_Practices_and_Supply_Chain_Risk_Management.pdf",
+                        "content": "ot reliant on an individual developer\u2019s discretion.\nThis shift would transfer the decision-making process from the developer to the\norganisation, shifting the burden of responsibility from the develop..."
+                    },
+                    {
+                        "source": "Open_Source_Software_Best_Practices_and_Supply_Chain_Risk_Management.pdf",
+                        "content": "nprocess,astheyallowforevalu-\nating OSS components before they are integrated into the organisation\u2019s systems.\nWe found that there are several maturity models for evaluating OSS components;\nhowever,th..."
+                    }
+                ],
+                "confidence": "low",
+                "timestamp": "2025-08-03T18:33:23.364488+00:00"
+            }
+        ],
         "created_at": "2025-08-03T17:11:50.064909+00:00",
-        "title": "New Chat"
+        "title": "it works"
     }
 }

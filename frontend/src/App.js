@@ -660,19 +660,6 @@ function App() {
           </div>
           {/* --- End Model Selector --- */}
 
-          {/* --- Speech-to-Text Button --- */}
-          {sttSupported && (
-            <button
-              onClick={isListening ? stopListening : startListening}
-              className={`speech-button stt-button ${isListening ? 'listening' : ''}`}
-              aria-label={isListening ? "Stop listening" : "Start voice input"}
-              title={isListening ? "Stop listening (Escape)" : "Start voice input"}
-            >
-              {isListening ? '🛑' : '🎤'}
-            </button>
-          )}
-          {/* --- End Speech-to-Text Button --- */}
-
           <button
             onClick={createNewSession}
             disabled={isCreatingSession || isLoading}
