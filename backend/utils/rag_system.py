@@ -6,8 +6,10 @@ from chromadb.utils import embedding_functions
 # from sentence_transformers import SentenceTransformer
 import google.generativeai as genai
 import os
-# import numpy as np # Might not need if using Chroma's built-in search
-# from sklearn.metrics.pairwise import cosine_similarity # Not needed for Chroma search
+import logging  # Import logging for better error handling
+
+# Configure logging for this module if needed, or it will use the Flask app's logger
+# logging.basicConfig(level=logging.INFO) # Uncomment if running standalone
 
 class RAGSystem:
     def __init__(self, model_name="gemini-1.5-flash", chroma_db_path="./chroma_db"):
@@ -19,8 +21,8 @@ class RAGSystem:
         if not api_key:
             raise ValueError("GEMINI_API_KEY not found in environment variables")
         genai.configure(api_key=api_key)
-        self.model = genai.GenerativeModel(model_name)
-        self.model_name = model_name # Store for potential later use
+        self.model_name = model_name  # Store the model name
+        self.model = genai.GenerativeModel(self.model_name)
 
         # --- 2. Initialize ChromaDB Client ---
         # Persistent storage on disk
@@ -31,7 +33,8 @@ class RAGSystem:
         # A collection is like a table in a database, holding related documents/chunks.
         # We'll use the default embedding function (Sentence Transformers all-MiniLM-L6-v2)
         # You can specify a different one if needed.
-        self.sentence_transformer_ef = embedding_functions.SentenceTransformerEmbeddingFunction(model_name="all-MiniLM-L6-v2")
+        self.sentence_transformer_ef = embedding_functions.SentenceTransformerEmbeddingFunction(
+            model_name="all-MiniLM-L6-v2")
         # Collection name
         self.collection_name = "sc4_0_documents"
         # Get or create the collection. If it exists, it loads it. If not, it creates it.
@@ -42,7 +45,8 @@ class RAGSystem:
             # metadata={"hnsw:space": "cosine"} # Optional: specify distance metric
         )
 
-        print(f"Initialized RAGSystem with ChromaDB collection '{self.collection_name}' at {chroma_db_path}")
+        print(
+            f"Initialized RAGSystem with ChromaDB collection '{self.collection_name}' at {chroma_db_path} using model '{self.model_name}'")
 
     # --- Methods for adding documents/chunks ---
 
@@ -74,11 +78,12 @@ class RAGSystem:
             # Chroma will automatically embed the 'documents' using the specified embedding function
             self.collection.add(
                 ids=ids,
-                documents=documents, # The text content to embed
-                metadatas=metadatas   # Metadata associated with each document
+                documents=documents,  # The text content to embed
+                metadatas=metadatas  # Metadata associated with each document
                 # embeddings=... # Optional: You can provide pre-computed embeddings
             )
-            print(f"Added {len(chunks)} chunks to ChromaDB collection '{self.collection_name}'.")
+            print(
+                f"Added {len(chunks)} chunks to ChromaDB collection '{self.collection_name}'.")
         except Exception as e:
             print(f"Error adding chunks to ChromaDB: {e}")
             # Depending on requirements, you might want to raise the exception
@@ -105,9 +110,9 @@ class RAGSystem:
             # 'n_results' specifies how many results to return
             # 'where' applies metadata filters
             results = self.collection.query(
-                query_texts=[query], # The user's question
-                n_results=top_k,    # Number of relevant chunks to retrieve
-                where=where_clause   # Optional filter
+                query_texts=[query],  # The user's question
+                n_results=top_k,  # Number of relevant chunks to retrieve
+                where=where_clause  # Optional filter
             )
 
             # --- Process Results ---
@@ -123,7 +128,7 @@ class RAGSystem:
 
             relevant_chunks = []
             # Check if results are present (results dict keys exist and have data in the first [0] list)
-            if results['ids'] and results['ids'][0]: # Check if any results were found
+            if results['ids'] and results['ids'][0]:  # Check if any results were found
                 num_results = len(results['ids'][0])
                 for i in range(num_results):
                     chunk_data = {
@@ -136,7 +141,8 @@ class RAGSystem:
                     }
                     relevant_chunks.append(chunk_data)
 
-            print(f"Retrieved {len(relevant_chunks)} relevant chunks from ChromaDB for query: '{query[:50]}...'")
+            print(
+                f"Retrieved {len(relevant_chunks)} relevant chunks from ChromaDB for query: '{query[:50]}...'")
             return relevant_chunks
 
         except Exception as e:
@@ -144,8 +150,7 @@ class RAGSystem:
             # Return empty list or handle error as appropriate
             return []
 
-
-    # --- Method for generating response (mostly unchanged) ---
+    # --- Method for generating response (mostly unchanged, with improved error logging) ---
 
     def generate_response(self, query: str, relevant_chunks: list[dict]) -> dict:
         """Generate response using Gemini with relevant context"""
@@ -153,7 +158,7 @@ class RAGSystem:
             return {
                 'answer': "I couldn't find any relevant information in the uploaded documents to answer your question.",
                 'sources': [],
-                'confidence': 'low' # Indicate low confidence
+                'confidence': 'low'  # Indicate low confidence
             }
 
         # Prepare context from relevant chunks
@@ -178,7 +183,7 @@ class RAGSystem:
 
         try:
             response = self.model.generate_content(prompt)
-            answer = response.text.strip() # Clean up potential leading/trailing whitespace
+            answer = response.text.strip()  # Clean up potential leading/trailing whitespace
 
             # Include source information
             sources = [
@@ -192,18 +197,27 @@ class RAGSystem:
             # Basic check for relevance in response (very basic)
             # A more sophisticated check could be implemented later
             confidence = 'high'
+            # Simple keyword check in the answer
             if "I couldn't find" in answer or "not found in the provided context" in answer or "based on the context" not in answer.lower():
-                 confidence = 'low'
+                confidence = 'low'
 
             return {
                 'answer': answer,
                 'sources': sources,
-                'confidence': confidence # Add confidence indicator
+                'confidence': confidence  # Add confidence indicator
             }
 
+        # --- Improved Error Handling ---
         except Exception as e:
-            print(f"Error generating response with Gemini: {e}")
-            raise Exception(f"Error generating response: {str(e)}")
+            # Use logging to capture the full error, including traceback if possible.
+            # This is more informative than a simple print statement.
+            logging.error(
+                f"Error generating response with Gemini model '{self.model_name}': {e}", exc_info=True)
+            # Re-raise the exception so the calling function (app.py) can handle it gracefully
+            # and return the standard "Sorry, I encountered an error..." message to the frontend.
+            raise Exception(
+                f"Error generating response with model {self.model_name}: {str(e)}") from e
+        # --- End Improved Error Handling ---
 
     # --- Optional: Method to list documents (based on metadata) ---
     def list_documents(self) -> list[dict]:
@@ -212,11 +226,11 @@ class RAGSystem:
             # Get all unique 'doc_id' and 'source' from metadatas
             # ChromaDB's get method can retrieve items, potentially with filters
             # However, getting unique docs requires some processing.
-            # A simple way is to query a sample and extract metadata, or use collection info if available.
+            # A simple way is to query a sample and extract metadata, or use collection info if available later.
 
             # Let's try to get a sample or all items to extract unique docs
             # This might be inefficient for very large collections, consider metadata indexing if needed later.
-            all_data = self.collection.get(include=['metadatas']) # Get only metadatas
+            all_data = self.collection.get(include=['metadatas'])  # Get only metadatas
 
             unique_docs = {}
             if 'metadatas' in all_data and all_data['metadatas']:
@@ -224,7 +238,9 @@ class RAGSystem:
                     doc_id = metadata.get('doc_id')
                     source = metadata.get('source')
                     if doc_id and source and doc_id not in unique_docs:
-                        unique_docs[doc_id] = {'id': doc_id, 'name': source} # Or include chunk count if tracked differently
+                        # Or include chunk count if tracked differently
+                        unique_docs[doc_id] = {
+                            'id': doc_id, 'name': source}
 
             return list(unique_docs.values())
         except Exception as e:
@@ -235,14 +251,36 @@ class RAGSystem:
     def clear_collection(self):
         """Clears all data from the ChromaDB collection."""
         try:
-            self.collection.delete(ids=None) # Passing None or an empty list might delete all, check Chroma docs.
             # Safer approach: Get all IDs and delete them
-            all_data = self.collection.get(include=[]) # Get only IDs
+            all_data = self.collection.get(include=[])  # Get only IDs
             if 'ids' in all_data and all_data['ids']:
-                 self.collection.delete(ids=all_data['ids'])
-            print(f"Cleared all data from ChromaDB collection '{self.collection_name}'.")
+                self.collection.delete(ids=all_data['ids'])
+            print(
+                f"Cleared all data from ChromaDB collection '{self.collection_name}'.")
         except Exception as e:
             print(f"Error clearing ChromaDB collection: {e}")
+
+    # --- New Method: Delete chunks for a specific document ---
+    def delete_document_chunks(self, doc_id: str):
+        """
+        Deletes all chunks associated with a specific document ID from the ChromaDB collection.
+        """
+        try:
+            # ChromaDB allows deleting items by their IDs or by metadata filters.
+            # We'll use the metadata filter to delete all chunks where 'doc_id' equals the given doc_id.
+            # The 'where' parameter uses a dictionary for filtering.
+            # The '$eq' operator checks for equality.
+            where_clause = {"doc_id": {"$eq": doc_id}}
+
+            # Perform the deletion
+            self.collection.delete(where=where_clause)
+
+            print(
+                f"Deleted chunks for document ID '{doc_id}' from ChromaDB collection '{self.collection_name}'.")
+        except Exception as e:
+            print(
+                f"Error deleting chunks for document ID '{doc_id}' from ChromaDB: {e}")
+            raise  # Re-raise the exception to be handled by the caller
 
 # Example usage (if running this file directly for testing):
 # if __name__ == "__main__":

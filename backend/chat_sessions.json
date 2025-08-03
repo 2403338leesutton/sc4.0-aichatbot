@@ -1,39 +1,19 @@
 {
-    "2c694439-d6a5-4967-9436-9eada99999cb": {
+    "dc8213a8-d8b2-429f-bb24-bff7cec8af8f": {
         "messages": [
             {
                 "role": "user",
-                "content": "Hello",
-                "timestamp": "2025-08-03T10:41:57.469090+00:00"
-            },
-            {
-                "role": "assistant",
-                "content": "Hello.",
-                "sources": [
-                    {
-                        "source": "Open_Source_Software_Best_Practices_and_Supply_Chain_Risk_Management.pdf",
-                        "content": "Interviewee 5, Interviewee 6, and Interviewee 7 all mentioned that\nthey or their organisation do not contribute to the OSS community. They all felt\nobligated to contribute back to the OSS community bu..."
-                    },
-                    {
-                        "source": "Open_Source_Software_Best_Practices_and_Supply_Chain_Risk_Management.pdf",
-                        "content": ": The interviewees were asked about their strate-\ngies for OSS licensing and the tools they utilise to manage OSS projects,\nvulnerabilities,anddependencymanagementeffectively.\n5. Community Engagement:..."
-                    },
-                    {
-                        "source": "Open_Source_Software_Best_Practices_and_Supply_Chain_Risk_Management.pdf",
-                        "content": "ives to get a broad view of OSS within different organisations. Our\ntotalinterviewcountwaseight.\nTo find a broad range of interviewee, from varying backgrounds and sectors,\nwe connected with people on..."
-                    }
-                ],
-                "confidence": "low",
-                "timestamp": "2025-08-03T10:41:58.084925+00:00"
+                "content": "Meaning of SBOM",
+                "timestamp": "2025-08-03T12:01:55.194113+00:00"
             },
             {
                 "role": "user",
-                "content": "What is SBOM",
-                "timestamp": "2025-08-03T10:42:06.681753+00:00"
+                "content": "Meaning of SBOM",
+                "timestamp": "2025-08-03T12:02:01.290861+00:00"
             },
             {
                 "role": "assistant",
-                "content": "A Software Bill of Materials (SBOM) is a formal list of components used in a software system.  It tracks OSS components and their dependencies to manage security and compliance risks.  It provides visibility into the software supply chain, enabling identification and mitigation of potential security and licensing issues.",
+                "content": "A Software Bill of Materials (SBOM) is a list of open-source software (OSS) components used in a software product, including their dependencies and associated licenses.  It provides visibility into the software supply chain, enabling identification and mitigation of potential security and licensing issues.",
                 "sources": [
                     {
                         "source": "Open_Source_Software_Best_Practices_and_Supply_Chain_Risk_Management.pdf",
@@ -45,20 +25,387 @@
                     },
                     {
                         "source": "Open_Source_Software_Best_Practices_and_Supply_Chain_Risk_Management.pdf",
-                        "content": "tyfeaturesandmea-\nsurable performance metrics. In contrast, Butler et al., 2022 analysis portrays the\napprovalprocessassomewhatambiguous,describingitasmorereliantonassess-\nmentanddiscretionthanonstric..."
+                        "content": "a-\ntion Administration\u2019s (NTIA) multi-stakeholder process (National Telecommuni-\ncations and Information Administration, n.d.). This work culminated in the US\ngovernment\u2019s issuance of an executive ord..."
                     }
                 ],
                 "confidence": "low",
-                "timestamp": "2025-08-03T10:42:07.681009+00:00"
+                "timestamp": "2025-08-03T12:02:02.176479+00:00"
             },
             {
                 "role": "user",
-                "content": "Elaborate further",
-                "timestamp": "2025-08-03T10:42:29.740706+00:00"
+                "content": "meaning of sbom",
+                "timestamp": "2025-08-03T12:07:26.663917+00:00"
+            },
+            {
+                "role": "user",
+                "content": "meaning of sbom",
+                "timestamp": "2025-08-03T12:07:34.339616+00:00"
             },
             {
                 "role": "assistant",
-                "content": "The provided text does not offer any information to elaborate on.  There is no question or statement preceding the word \"elaborate\" to provide context for an elaboration.",
+                "content": "A Software Bill of Materials (SBOM) is a list of open-source software (OSS) components used in a software product, including their dependencies and associated licenses.  It provides visibility into the software supply chain, helping organizations identify and mitigate potential security and licensing issues.",
+                "sources": [
+                    {
+                        "source": "Open_Source_Software_Best_Practices_and_Supply_Chain_Risk_Management.pdf",
+                        "content": "nefits of SBOMs\ninclude lower costs, reduced code bloat (unnecessarily long, slow, or otherwise\nwastefulofresources),andimprovedsecurity(UnitedStatesDepartmentofCom-\nmerce, 2021).), and ensuring a mor..."
+                    },
+                    {
+                        "source": "Open_Source_Software_Best_Practices_and_Supply_Chain_Risk_Management.pdf",
+                        "content": "pply\nchain, organisations are at risk of \u201cdependency hell\u201d; the bigger the system, the\nmore it grows, the more dependencies you integrate into the software (Mishra,\n2023). The lack of visibility into ..."
+                    },
+                    {
+                        "source": "Open_Source_Software_Best_Practices_and_Supply_Chain_Risk_Management.pdf",
+                        "content": "a-\ntion Administration\u2019s (NTIA) multi-stakeholder process (National Telecommuni-\ncations and Information Administration, n.d.). This work culminated in the US\ngovernment\u2019s issuance of an executive ord..."
+                    }
+                ],
+                "confidence": "low",
+                "timestamp": "2025-08-03T12:07:35.266413+00:00"
+            },
+            {
+                "role": "user",
+                "content": "meaning of SBOM",
+                "timestamp": "2025-08-03T12:08:42.916607+00:00"
+            },
+            {
+                "role": "user",
+                "content": "how much was the total bill",
+                "timestamp": "2025-08-03T12:11:12.578047+00:00"
+            },
+            {
+                "role": "assistant",
+                "content": "The total bill was $240.",
+                "sources": [
+                    {
+                        "source": "Invoice_15th_July_2025.pdf",
+                        "content": "Invoice\n15 July 2025\nInvoice No. 2025 -0025\nBILL TO:\nCat Welfare Society\nDESCRIPTION PRICE SUBTOTAL\nPCSP - JTV - Cat (2) Transport Service\n$60 $60\nfor Tutiyana Binte Mohamed Noor\nS730545\nPCSP - JTV - ..."
+                    }
+                ],
+                "confidence": "low",
+                "timestamp": "2025-08-03T12:11:14.049431+00:00"
+            },
+            {
+                "role": "user",
+                "content": "how much was the total bill",
+                "timestamp": "2025-08-03T12:11:28.565417+00:00"
+            },
+            {
+                "role": "assistant",
+                "content": "This question cannot be answered from the given source.  The provided text mentions Software Bills of Materials (SBOMs), which are lists of components, but it does not contain any information about the cost of any specific bill.",
+                "sources": [
+                    {
+                        "source": "Open_Source_Software_Best_Practices_and_Supply_Chain_Risk_Management.pdf",
+                        "content": "tps://www.forbes.com/sites/\nadrianbridgwater/2019/09/07/the-impact-of-the-tech-\ngiants-on-open-source/(visitedon09/07/2019).\nHabusha, David (2019). Personal Communication. Vice President, WhiteSource...."
+                    },
+                    {
+                        "source": "Open_Source_Software_Best_Practices_and_Supply_Chain_Risk_Management.pdf",
+                        "content": "nt/\n8909944/authors.\nButler,Simonetal.(Sept.2022).\u201cConsiderationsandchallengesfortheadoption\nof open source components in software-intensive businesses\u201d. In: Empirical\nSoftware Engineering 28.8. URL: ..."
+                    },
+                    {
+                        "source": "Open_Source_Software_Best_Practices_and_Supply_Chain_Risk_Management.pdf",
+                        "content": "pply\nchain, organisations are at risk of \u201cdependency hell\u201d; the bigger the system, the\nmore it grows, the more dependencies you integrate into the software (Mishra,\n2023). The lack of visibility into ..."
+                    }
+                ],
+                "confidence": "low",
+                "timestamp": "2025-08-03T12:11:29.349114+00:00"
+            },
+            {
+                "role": "user",
+                "content": "how much was the total bill",
+                "timestamp": "2025-08-03T12:11:39.762593+00:00"
+            },
+            {
+                "role": "assistant",
+                "content": "$240",
+                "sources": [
+                    {
+                        "source": "Invoice_15th_July_2025.pdf",
+                        "content": "Invoice\n15 July 2025\nInvoice No. 2025 -0025\nBILL TO:\nCat Welfare Society\nDESCRIPTION PRICE SUBTOTAL\nPCSP - JTV - Cat (2) Transport Service\n$60 $60\nfor Tutiyana Binte Mohamed Noor\nS730545\nPCSP - JTV - ..."
+                    },
+                    {
+                        "source": "Open_Source_Software_Best_Practices_and_Supply_Chain_Risk_Management.pdf",
+                        "content": "tps://www.forbes.com/sites/\nadrianbridgwater/2019/09/07/the-impact-of-the-tech-\ngiants-on-open-source/(visitedon09/07/2019).\nHabusha, David (2019). Personal Communication. Vice President, WhiteSource...."
+                    },
+                    {
+                        "source": "Open_Source_Software_Best_Practices_and_Supply_Chain_Risk_Management.pdf",
+                        "content": "nt/\n8909944/authors.\nButler,Simonetal.(Sept.2022).\u201cConsiderationsandchallengesfortheadoption\nof open source components in software-intensive businesses\u201d. In: Empirical\nSoftware Engineering 28.8. URL: ..."
+                    }
+                ],
+                "confidence": "low",
+                "timestamp": "2025-08-03T12:11:40.335052+00:00"
+            },
+            {
+                "role": "user",
+                "content": "what requirements are there for oss",
+                "timestamp": "2025-08-03T13:10:57.153503+00:00"
+            },
+            {
+                "role": "assistant",
+                "content": "Based on the provided text, there is a recommendation to establish an internal OSS policy detailing criteria for evaluating the trustworthiness and maturity of OSS components.  The policy should avoid being overly prescriptive to encourage innovation.  The text also mentions several maturity models for evaluating OSS components (C-OSSM, N-OSSM, QSOS, OpenBRR, and E-OSS) but notes that there's no consensus on which is best.",
+                "sources": [
+                    {
+                        "source": "Open_Source_Software_Best_Practices_and_Supply_Chain_Risk_Management.pdf",
+                        "content": "e engagement with the OSS community to attract new talent,\n4\nlevel the competitive playing field, foster innovation, improve reputation,\nandensurehigh-qualityOSScomponentsandasustainableOSSecosystem.\n..."
+                    },
+                    {
+                        "source": "Open_Source_Software_Best_Practices_and_Supply_Chain_Risk_Management.pdf",
+                        "content": "ot reliant on an individual developer\u2019s discretion.\nThis shift would transfer the decision-making process from the developer to the\norganisation, shifting the burden of responsibility from the develop..."
+                    },
+                    {
+                        "source": "Open_Source_Software_Best_Practices_and_Supply_Chain_Risk_Management.pdf",
+                        "content": "nprocess,astheyallowforevalu-\nating OSS components before they are integrated into the organisation\u2019s systems.\nWe found that there are several maturity models for evaluating OSS components;\nhowever,th..."
+                    }
+                ],
+                "confidence": "low",
+                "timestamp": "2025-08-03T13:10:58.270279+00:00"
+            },
+            {
+                "role": "user",
+                "content": "what requirements are there for oss",
+                "timestamp": "2025-08-03T13:11:11.462908+00:00"
+            },
+            {
+                "role": "assistant",
+                "content": "This question cannot be answered from the given source.  The provided text is an invoice and does not contain any information about OSS requirements.",
+                "sources": [
+                    {
+                        "source": "Invoice_15th_July_2025.pdf",
+                        "content": "Invoice\n15 July 2025\nInvoice No. 2025 -0025\nBILL TO:\nCat Welfare Society\nDESCRIPTION PRICE SUBTOTAL\nPCSP - JTV - Cat (2) Transport Service\n$60 $60\nfor Tutiyana Binte Mohamed Noor\nS730545\nPCSP - JTV - ..."
+                    }
+                ],
+                "confidence": "low",
+                "timestamp": "2025-08-03T13:11:12.090244+00:00"
+            },
+            {
+                "role": "user",
+                "content": "What requirements are there for OSS?",
+                "timestamp": "2025-08-03T13:12:47.089341+00:00"
+            },
+            {
+                "role": "assistant",
+                "content": "Based on the provided text, there is a recommendation to establish an internal OSS policy detailing criteria for evaluating the trustworthiness and maturity of OSS components.  The policy should avoid being overly prescriptive to encourage innovation.  The text also mentions several maturity models for evaluating OSS components (C-OSSM, N-OSMM, QSOS, OpenBRR, E-OSS) but notes that there's no consensus on which is best.",
+                "sources": [
+                    {
+                        "source": "Open_Source_Software_Best_Practices_and_Supply_Chain_Risk_Management.pdf",
+                        "content": "e engagement with the OSS community to attract new talent,\n4\nlevel the competitive playing field, foster innovation, improve reputation,\nandensurehigh-qualityOSScomponentsandasustainableOSSecosystem.\n..."
+                    },
+                    {
+                        "source": "Open_Source_Software_Best_Practices_and_Supply_Chain_Risk_Management.pdf",
+                        "content": "ot reliant on an individual developer\u2019s discretion.\nThis shift would transfer the decision-making process from the developer to the\norganisation, shifting the burden of responsibility from the develop..."
+                    },
+                    {
+                        "source": "Open_Source_Software_Best_Practices_and_Supply_Chain_Risk_Management.pdf",
+                        "content": "nprocess,astheyallowforevalu-\nating OSS components before they are integrated into the organisation\u2019s systems.\nWe found that there are several maturity models for evaluating OSS components;\nhowever,th..."
+                    }
+                ],
+                "confidence": "low",
+                "timestamp": "2025-08-03T13:12:48.152473+00:00"
+            },
+            {
+                "role": "user",
+                "content": "what are the future works of oss",
+                "timestamp": "2025-08-03T13:20:35.403469+00:00"
+            },
+            {
+                "role": "assistant",
+                "content": "Future research and policy should focus on developing scale-appropriate best practice guidance, encouraging organizations to contribute back to the OSS community, and exploring if industry-specific guidance is needed for managing OSS components and assessing the impacts of community engagement on OSS.",
+                "sources": [
+                    {
+                        "source": "Open_Source_Software_Best_Practices_and_Supply_Chain_Risk_Management.pdf",
+                        "content": "e engagement with the OSS community to attract new talent,\n4\nlevel the competitive playing field, foster innovation, improve reputation,\nandensurehigh-qualityOSScomponentsandasustainableOSSecosystem.\n..."
+                    },
+                    {
+                        "source": "Open_Source_Software_Best_Practices_and_Supply_Chain_Risk_Management.pdf",
+                        "content": ": The interviewees were asked about their strate-\ngies for OSS licensing and the tools they utilise to manage OSS projects,\nvulnerabilities,anddependencymanagementeffectively.\n5. Community Engagement:..."
+                    },
+                    {
+                        "source": "Open_Source_Software_Best_Practices_and_Supply_Chain_Risk_Management.pdf",
+                        "content": "ot reliant on an individual developer\u2019s discretion.\nThis shift would transfer the decision-making process from the developer to the\norganisation, shifting the burden of responsibility from the develop..."
+                    }
+                ],
+                "confidence": "low",
+                "timestamp": "2025-08-03T13:20:37.174517+00:00"
+            },
+            {
+                "role": "user",
+                "content": "what were the total prices",
+                "timestamp": "2025-08-03T13:55:05.286957+00:00"
+            },
+            {
+                "role": "assistant",
+                "content": "The total prices for the three invoices were $180, $180, and $240, respectively.",
+                "sources": [
+                    {
+                        "source": "Invoice_3rd_July_2025.pdf",
+                        "content": "Invoice\n3 July 2025\nInvoice No. 2025 -0022\nBILL TO:\nCat Welfare Society\nDESCRIPTION PRICE SUBTOTAL\nPCSP - ACACIA - Cat (3) Transport Service\n$60 $60\nfor Nur Nadhihah binte Mohamad Ali\nS751130\nPCSP - A..."
+                    },
+                    {
+                        "source": "Invoice_10th_July_2025.pdf",
+                        "content": "Invoice\n10 July 2025\nInvoice No. 2025 -0024\nBILL TO:\nCat Welfare Society\nDESCRIPTION PRICE SUBTOTAL\nPCSP - JTV - Cat (1) Transport Service\n$60 $60\nfor Nur Azizah binte Abdullah\nS310056\nPCSP - JTV - Ca..."
+                    },
+                    {
+                        "source": "Invoice_15th_July_2025.pdf",
+                        "content": "Invoice\n15 July 2025\nInvoice No. 2025 -0025\nBILL TO:\nCat Welfare Society\nDESCRIPTION PRICE SUBTOTAL\nPCSP - JTV - Cat (2) Transport Service\n$60 $60\nfor Tutiyana Binte Mohamed Noor\nS730545\nPCSP - JTV - ..."
+                    }
+                ],
+                "confidence": "low",
+                "timestamp": "2025-08-03T13:55:05.979522+00:00"
+            },
+            {
+                "role": "user",
+                "content": "what about on the 9th",
+                "timestamp": "2025-08-03T13:55:21.240624+00:00"
+            },
+            {
+                "role": "assistant",
+                "content": "On July 9th, 2025, two cat transport services were provided to Siti Nurzwani binte Mazlan (S750331) and Has Faridiana binte Abdullah (S752364), each costing $60.  The total invoice amount was $120.",
+                "sources": [
+                    {
+                        "source": "Invoice_9th_Jul_2025.pdf",
+                        "content": "Invoice\n9 July 2025\nInvoice No. 2025 -0023\nBILL TO:\nCat Welfare Society\nDESCRIPTION PRICE SUBTOTAL\nPCSP - JTV- Cat (4) Transport\nService for Siti Nurzwani binte $60 $60\nMazlan\nS750331\nPCSP - JTV - Cat..."
+                    },
+                    {
+                        "source": "Invoice_15th_July_2025.pdf",
+                        "content": "Invoice\n15 July 2025\nInvoice No. 2025 -0025\nBILL TO:\nCat Welfare Society\nDESCRIPTION PRICE SUBTOTAL\nPCSP - JTV - Cat (2) Transport Service\n$60 $60\nfor Tutiyana Binte Mohamed Noor\nS730545\nPCSP - JTV - ..."
+                    },
+                    {
+                        "source": "Invoice_3rd_July_2025.pdf",
+                        "content": "Invoice\n3 July 2025\nInvoice No. 2025 -0022\nBILL TO:\nCat Welfare Society\nDESCRIPTION PRICE SUBTOTAL\nPCSP - ACACIA - Cat (3) Transport Service\n$60 $60\nfor Nur Nadhihah binte Mohamad Ali\nS751130\nPCSP - A..."
+                    }
+                ],
+                "confidence": "low",
+                "timestamp": "2025-08-03T13:55:22.596410+00:00"
+            },
+            {
+                "role": "user",
+                "content": "so total prices for all the dates",
+                "timestamp": "2025-08-03T13:55:37.903187+00:00"
+            },
+            {
+                "role": "assistant",
+                "content": "$480",
+                "sources": [
+                    {
+                        "source": "Invoice_3rd_July_2025.pdf",
+                        "content": "Invoice\n3 July 2025\nInvoice No. 2025 -0022\nBILL TO:\nCat Welfare Society\nDESCRIPTION PRICE SUBTOTAL\nPCSP - ACACIA - Cat (3) Transport Service\n$60 $60\nfor Nur Nadhihah binte Mohamad Ali\nS751130\nPCSP - A..."
+                    },
+                    {
+                        "source": "Invoice_9th_Jul_2025.pdf",
+                        "content": "Invoice\n9 July 2025\nInvoice No. 2025 -0023\nBILL TO:\nCat Welfare Society\nDESCRIPTION PRICE SUBTOTAL\nPCSP - JTV- Cat (4) Transport\nService for Siti Nurzwani binte $60 $60\nMazlan\nS750331\nPCSP - JTV - Cat..."
+                    },
+                    {
+                        "source": "Invoice_10th_July_2025.pdf",
+                        "content": "Invoice\n10 July 2025\nInvoice No. 2025 -0024\nBILL TO:\nCat Welfare Society\nDESCRIPTION PRICE SUBTOTAL\nPCSP - JTV - Cat (1) Transport Service\n$60 $60\nfor Nur Azizah binte Abdullah\nS310056\nPCSP - JTV - Ca..."
+                    }
+                ],
+                "confidence": "low",
+                "timestamp": "2025-08-03T13:55:38.411662+00:00"
+            },
+            {
+                "role": "user",
+                "content": "for all 4 dates",
+                "timestamp": "2025-08-03T13:56:09.935906+00:00"
+            },
+            {
+                "role": "assistant",
+                "content": "July 3, 2025; July 9, 2025; July 10, 2025 are the dates mentioned in the provided invoices.",
+                "sources": [
+                    {
+                        "source": "Invoice_9th_Jul_2025.pdf",
+                        "content": "Invoice\n9 July 2025\nInvoice No. 2025 -0023\nBILL TO:\nCat Welfare Society\nDESCRIPTION PRICE SUBTOTAL\nPCSP - JTV- Cat (4) Transport\nService for Siti Nurzwani binte $60 $60\nMazlan\nS750331\nPCSP - JTV - Cat..."
+                    },
+                    {
+                        "source": "Invoice_3rd_July_2025.pdf",
+                        "content": "Invoice\n3 July 2025\nInvoice No. 2025 -0022\nBILL TO:\nCat Welfare Society\nDESCRIPTION PRICE SUBTOTAL\nPCSP - ACACIA - Cat (3) Transport Service\n$60 $60\nfor Nur Nadhihah binte Mohamad Ali\nS751130\nPCSP - A..."
+                    },
+                    {
+                        "source": "Invoice_10th_July_2025.pdf",
+                        "content": "Invoice\n10 July 2025\nInvoice No. 2025 -0024\nBILL TO:\nCat Welfare Society\nDESCRIPTION PRICE SUBTOTAL\nPCSP - JTV - Cat (1) Transport Service\n$60 $60\nfor Nur Azizah binte Abdullah\nS310056\nPCSP - JTV - Ca..."
+                    }
+                ],
+                "confidence": "low",
+                "timestamp": "2025-08-03T13:56:10.653632+00:00"
+            },
+            {
+                "role": "user",
+                "content": "what is oss",
+                "timestamp": "2025-08-03T14:05:30.081058+00:00"
+            },
+            {
+                "role": "assistant",
+                "content": "Based on the provided text, OSS stands for open-source software.",
+                "sources": [
+                    {
+                        "source": "Open_Source_Software_Best_Practices_and_Supply_Chain_Risk_Management.pdf",
+                        "content": ": The interviewees were asked about their strate-\ngies for OSS licensing and the tools they utilise to manage OSS projects,\nvulnerabilities,anddependencymanagementeffectively.\n5. Community Engagement:..."
+                    },
+                    {
+                        "source": "Open_Source_Software_Best_Practices_and_Supply_Chain_Risk_Management.pdf",
+                        "content": "e engagement with the OSS community to attract new talent,\n4\nlevel the competitive playing field, foster innovation, improve reputation,\nandensurehigh-qualityOSScomponentsandasustainableOSSecosystem.\n..."
+                    },
+                    {
+                        "source": "Open_Source_Software_Best_Practices_and_Supply_Chain_Risk_Management.pdf",
+                        "content": "ot reliant on an individual developer\u2019s discretion.\nThis shift would transfer the decision-making process from the developer to the\norganisation, shifting the burden of responsibility from the develop..."
+                    },
+                    {
+                        "source": "Open_Source_Software_Best_Practices_and_Supply_Chain_Risk_Management.pdf",
+                        "content": "ives to get a broad view of OSS within different organisations. Our\ntotalinterviewcountwaseight.\nTo find a broad range of interviewee, from varying backgrounds and sectors,\nwe connected with people on..."
+                    },
+                    {
+                        "source": "Open_Source_Software_Best_Practices_and_Supply_Chain_Risk_Management.pdf",
+                        "content": "backtotheOSScommunity,exploreifindustry-specificguidanceis\nneeded for managing OSS components, assessing the impacts of community en-\ngagement on OSS quality and security, and formulating standardised..."
+                    },
+                    {
+                        "source": "Open_Source_Software_Best_Practices_and_Supply_Chain_Risk_Management.pdf",
+                        "content": "nprocess,astheyallowforevalu-\nating OSS components before they are integrated into the organisation\u2019s systems.\nWe found that there are several maturity models for evaluating OSS components;\nhowever,th..."
+                    },
+                    {
+                        "source": "Open_Source_Software_Best_Practices_and_Supply_Chain_Risk_Management.pdf",
+                        "content": "an Union, the United Nations, and\ntheUnitedStatesDepartmentofDefense,wereexplored.\n3.2.2 SearchTerms\nKeywords like \u201cOSS adoption best practices\u201d, \u201cOSS management strategies\u201d,\n\u201cOSS community engagement..."
+                    },
+                    {
+                        "source": "Open_Source_Software_Best_Practices_and_Supply_Chain_Risk_Management.pdf",
+                        "content": "on the use of OSS and the risks\nassociated with it. Significantly, there was no consistency in the adoption and\nmanagement of OSS, with each organisation having its own approach. However,\nwe did see t..."
+                    },
+                    {
+                        "source": "Open_Source_Software_Best_Practices_and_Supply_Chain_Risk_Management.pdf",
+                        "content": "stein,2018).\nThe process often includes creating a distinct OSS developer community (OSS-\nDC) for the forked version, allowing the organisation to focus on modifying or\nenhancing specific components o..."
+                    },
+                    {
+                        "source": "Open_Source_Software_Best_Practices_and_Supply_Chain_Risk_Management.pdf",
+                        "content": "mal standards bodies. The report ends with a set of recommended best practices\nfor managing OSS and mitigating supply chain risks effectively. The best prac-\nticesrecommendedinthisreporthavebeenselect..."
+                    },
+                    {
+                        "source": "Open_Source_Software_Best_Practices_and_Supply_Chain_Risk_Management.pdf",
+                        "content": "esearch found discrepancies and variations in approaches to OSS adoption,\nmanagement,andcommunityengagement. Largetechnologycompaniesalsoplay\na critical role in setting standards and best practices, s..."
+                    },
+                    {
+                        "source": "Open_Source_Software_Best_Practices_and_Supply_Chain_Risk_Management.pdf",
+                        "content": "OSSintheeducationsectorfoundthatadoptingOSSallows\nfor its customisation to meet local needs. For instance, Open Office in India has\nbeen adapted to include support for twenty-six Indian languages, sur..."
+                    },
+                    {
+                        "source": "Open_Source_Software_Best_Practices_and_Supply_Chain_Risk_Management.pdf",
+                        "content": "OSSPolicy\nAn OSS policy is a formal document that outlines the rules and guidelines for\nusingopen-sourcesoftwarewithinanorganisation.\nOur literature review found an OSS policy to be a recurring theme ..."
+                    },
+                    {
+                        "source": "Open_Source_Software_Best_Practices_and_Supply_Chain_Risk_Management.pdf",
+                        "content": "Interviewee 7 had no formal or structured adoption process in place. OSS adop-\ntion was driven primarily by a business need. If the team needed a new feature,\nthey would look for an OSS component that..."
+                    },
+                    {
+                        "source": "Open_Source_Software_Best_Practices_and_Supply_Chain_Risk_Management.pdf",
+                        "content": "re consid-\nered.\n3.4.2 SearchTerms\nKeywords like \u201cOSS standards\u201d, \u201cOSS legal guidelines\u201d, \u201cOSS security stan-\ndards\u201d,and\u201cOSScommunityguidelines\u201dwereusedtofindrelevantmaterials.\n10\n3.4.3 CriteriaforInc..."
+                    }
+                ],
+                "confidence": "low",
+                "timestamp": "2025-08-03T14:05:31.036432+00:00"
+            },
+            {
+                "role": "user",
+                "content": "elaborate further",
+                "timestamp": "2025-08-03T14:05:42.974203+00:00"
+            },
+            {
+                "role": "assistant",
+                "content": "The provided text does not offer a question to elaborate on.  Therefore, I cannot answer this question.",
                 "sources": [
                     {
                         "source": "Open_Source_Software_Best_Practices_and_Supply_Chain_Risk_Management.pdf",
@@ -71,23 +418,30 @@
                     {
                         "source": "Open_Source_Software_Best_Practices_and_Supply_Chain_Risk_Management.pdf",
                         "content": "a-\ntion Administration\u2019s (NTIA) multi-stakeholder process (National Telecommuni-\ncations and Information Administration, n.d.). This work culminated in the US\ngovernment\u2019s issuance of an executive ord..."
-                    }
-                ],
-                "confidence": "low",
-                "timestamp": "2025-08-03T10:42:30.388707+00:00"
-            },
-            {
-                "role": "user",
-                "content": "Elaborate on SBOM further",
-                "timestamp": "2025-08-03T10:42:40.064999+00:00"
-            },
-            {
-                "role": "assistant",
-                "content": "A Software Bill of Materials (SBOM) is a list of open-source software (OSS) components used in a software product, including dependencies and licenses.  SBOMs provide visibility into the software supply chain, helping identify and mitigate security and licensing issues.  Benefits include lower costs, reduced code bloat, improved security, and a more secure software supply chain.  The two primary SBOM formats are SPDX and CycloneDX.  Creating an SBOM can be time-consuming, but automated generation and readily available tools can alleviate this.  The US government mandates SBOM use in federal software.",
-                "sources": [
+                    },
                     {
                         "source": "Open_Source_Software_Best_Practices_and_Supply_Chain_Risk_Management.pdf",
-                        "content": "nefits of SBOMs\ninclude lower costs, reduced code bloat (unnecessarily long, slow, or otherwise\nwastefulofresources),andimprovedsecurity(UnitedStatesDepartmentofCom-\nmerce, 2021).), and ensuring a mor..."
+                        "content": "mal standards bodies. The report ends with a set of recommended best practices\nfor managing OSS and mitigating supply chain risks effectively. The best prac-\nticesrecommendedinthisreporthavebeenselect..."
+                    },
+                    {
+                        "source": "Open_Source_Software_Best_Practices_and_Supply_Chain_Risk_Management.pdf",
+                        "content": "Licencing . . . . . . . . . . . . . . . . . . . . . . . . . . 19\n4.2 Management . . . . . . . . . . . . . . . . . . . . . . . . . . . . 21\n2\n4.2.1 Regularvulnerabilityassessments . . . . . . . . . . ...."
+                    },
+                    {
+                        "source": "Open_Source_Software_Best_Practices_and_Supply_Chain_Risk_Management.pdf",
+                        "content": "ify, evaluate,\nandrecommendbestpracticesorganisationscanimplementtoensurearobustand\nsecureOSSmanagementstrategy. Thebestpracticesfocusontheadoption,man-\nagement, and community aspects of OSS, as well ..."
+                    },
+                    {
+                        "source": "Open_Source_Software_Best_Practices_and_Supply_Chain_Risk_Management.pdf",
+                        "content": "on . . . . . . . . . . . . 11\n3.5 Interviews . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 11\n3.5.1 SelectionofExperts . . . . . . . . . . . . . . . . . . . . 11\n3.5.2 Preparation . . . ..."
+                    },
+                    {
+                        "source": "Open_Source_Software_Best_Practices_and_Supply_Chain_Risk_Management.pdf",
+                        "content": "red, and the software must be properly\nlicensed. We saw from the interviews that these technical considerations are usu-\nally a deal-breaker and the reason why organisations do not open-source their\ns..."
+                    },
+                    {
+                        "source": "Open_Source_Software_Best_Practices_and_Supply_Chain_Risk_Management.pdf",
+                        "content": "broad, with\nmost sources recommending similar best practices for adopting, managing, and\nengaging with the community. These aspects have been covered in depth in liter-\nature,withawiderangeofbestpract..."
                     },
                     {
                         "source": "Open_Source_Software_Best_Practices_and_Supply_Chain_Risk_Management.pdf",
@@ -95,14 +449,191 @@
                     },
                     {
                         "source": "Open_Source_Software_Best_Practices_and_Supply_Chain_Risk_Management.pdf",
-                        "content": "a-\ntion Administration\u2019s (NTIA) multi-stakeholder process (National Telecommuni-\ncations and Information Administration, n.d.). This work culminated in the US\ngovernment\u2019s issuance of an executive ord..."
+                        "content": "ustries and Sizes Case studies were chosen from different fields\nsuch as technology, healthcare, and education, and included both small startups\nandlargecorporationstoensureawiderangeofOSSapplications..."
+                    },
+                    {
+                        "source": "Open_Source_Software_Best_Practices_and_Supply_Chain_Risk_Management.pdf",
+                        "content": "ct the real-world use of\nOSS, and more work should be done to consider the different approaches to risk\nmanagementandmitigationbasedonthesizeoftheorganisation.\nWe can see that outside highly regulated..."
+                    },
+                    {
+                        "source": "Open_Source_Software_Best_Practices_and_Supply_Chain_Risk_Management.pdf",
+                        "content": "ure advanced capabilities for assessing third-party code, either through\nbinaryanalysisorspecialisedadd-ons.\n\u2022 Plan to enhance capabilities related to Software Bill of Materials (SBOM)\nandvulnerabilit..."
+                    },
+                    {
+                        "source": "Open_Source_Software_Best_Practices_and_Supply_Chain_Risk_Management.pdf",
+                        "content": "sattractnewtalentandlower\ncostsforhiring(Nagle,2018). Itcanhelpleveltheplayingfieldforsmallerorgan-\nisations, who may not have the resources to compete with larger organisations in\ntermsofhiringanddev..."
+                    },
+                    {
+                        "source": "Open_Source_Software_Best_Practices_and_Supply_Chain_Risk_Management.pdf",
+                        "content": "projectsandisanexcellentexampleofacommunityengage-\nmentinitiative(GitHub,n.d.).\nAnotherinitiativeistheGitHubSponsorsprogram,whichallowsorganisationsto\nfinanciallysupportOSSprojects(ExploreGitHubSponso..."
                     }
                 ],
                 "confidence": "low",
-                "timestamp": "2025-08-03T10:42:41.411639+00:00"
+                "timestamp": "2025-08-03T14:05:43.775345+00:00"
+            },
+            {
+                "role": "user",
+                "content": "elaborate further what oss is",
+                "timestamp": "2025-08-03T14:05:54.011443+00:00"
+            },
+            {
+                "role": "assistant",
+                "content": "Based on the provided text, OSS stands for open-source software.  The documents describe it as software stored in public repositories, accessible to anyone, and often developed by a community of developers.  Its popularity is growing, leading to increased reliance on it for productivity and innovation.  However, this growth necessitates addressing associated risks, including licensing, tooling, and community engagement.",
+                "sources": [
+                    {
+                        "source": "Open_Source_Software_Best_Practices_and_Supply_Chain_Risk_Management.pdf",
+                        "content": "e engagement with the OSS community to attract new talent,\n4\nlevel the competitive playing field, foster innovation, improve reputation,\nandensurehigh-qualityOSScomponentsandasustainableOSSecosystem.\n..."
+                    },
+                    {
+                        "source": "Open_Source_Software_Best_Practices_and_Supply_Chain_Risk_Management.pdf",
+                        "content": ": The interviewees were asked about their strate-\ngies for OSS licensing and the tools they utilise to manage OSS projects,\nvulnerabilities,anddependencymanagementeffectively.\n5. Community Engagement:..."
+                    },
+                    {
+                        "source": "Open_Source_Software_Best_Practices_and_Supply_Chain_Risk_Management.pdf",
+                        "content": "ot reliant on an individual developer\u2019s discretion.\nThis shift would transfer the decision-making process from the developer to the\norganisation, shifting the burden of responsibility from the develop..."
+                    },
+                    {
+                        "source": "Open_Source_Software_Best_Practices_and_Supply_Chain_Risk_Management.pdf",
+                        "content": "nprocess,astheyallowforevalu-\nating OSS components before they are integrated into the organisation\u2019s systems.\nWe found that there are several maturity models for evaluating OSS components;\nhowever,th..."
+                    },
+                    {
+                        "source": "Open_Source_Software_Best_Practices_and_Supply_Chain_Risk_Management.pdf",
+                        "content": "ives to get a broad view of OSS within different organisations. Our\ntotalinterviewcountwaseight.\nTo find a broad range of interviewee, from varying backgrounds and sectors,\nwe connected with people on..."
+                    },
+                    {
+                        "source": "Open_Source_Software_Best_Practices_and_Supply_Chain_Risk_Management.pdf",
+                        "content": "mal standards bodies. The report ends with a set of recommended best practices\nfor managing OSS and mitigating supply chain risks effectively. The best prac-\nticesrecommendedinthisreporthavebeenselect..."
+                    },
+                    {
+                        "source": "Open_Source_Software_Best_Practices_and_Supply_Chain_Risk_Management.pdf",
+                        "content": "backtotheOSScommunity,exploreifindustry-specificguidanceis\nneeded for managing OSS components, assessing the impacts of community en-\ngagement on OSS quality and security, and formulating standardised..."
+                    },
+                    {
+                        "source": "Open_Source_Software_Best_Practices_and_Supply_Chain_Risk_Management.pdf",
+                        "content": "esearch found discrepancies and variations in approaches to OSS adoption,\nmanagement,andcommunityengagement. Largetechnologycompaniesalsoplay\na critical role in setting standards and best practices, s..."
+                    },
+                    {
+                        "source": "Open_Source_Software_Best_Practices_and_Supply_Chain_Risk_Management.pdf",
+                        "content": "e,2021).\nDepth \u2013 An SBOM must include all primary components and their transitive de-\npendencies, ensuring top-level dependencies are detailed enough to identify all\nsubsequent dependencies recursivel..."
+                    },
+                    {
+                        "source": "Open_Source_Software_Best_Practices_and_Supply_Chain_Risk_Management.pdf",
+                        "content": "re consid-\nered.\n3.4.2 SearchTerms\nKeywords like \u201cOSS standards\u201d, \u201cOSS legal guidelines\u201d, \u201cOSS security stan-\ndards\u201d,and\u201cOSScommunityguidelines\u201dwereusedtofindrelevantmaterials.\n10\n3.4.3 CriteriaforInc..."
+                    },
+                    {
+                        "source": "Open_Source_Software_Best_Practices_and_Supply_Chain_Risk_Management.pdf",
+                        "content": "ify, evaluate,\nandrecommendbestpracticesorganisationscanimplementtoensurearobustand\nsecureOSSmanagementstrategy. Thebestpracticesfocusontheadoption,man-\nagement, and community aspects of OSS, as well ..."
+                    },
+                    {
+                        "source": "Open_Source_Software_Best_Practices_and_Supply_Chain_Risk_Management.pdf",
+                        "content": "OSSintheeducationsectorfoundthatadoptingOSSallows\nfor its customisation to meet local needs. For instance, Open Office in India has\nbeen adapted to include support for twenty-six Indian languages, sur..."
+                    },
+                    {
+                        "source": "Open_Source_Software_Best_Practices_and_Supply_Chain_Risk_Management.pdf",
+                        "content": "an Union, the United Nations, and\ntheUnitedStatesDepartmentofDefense,wereexplored.\n3.2.2 SearchTerms\nKeywords like \u201cOSS adoption best practices\u201d, \u201cOSS management strategies\u201d,\n\u201cOSS community engagement..."
+                    },
+                    {
+                        "source": "Open_Source_Software_Best_Practices_and_Supply_Chain_Risk_Management.pdf",
+                        "content": "ityReviewHistory: Possessesarecordofsecurityreviews.\n\u2022 Cybersecurity Testing: Undergoes regular cybersecurity assessments, no-\ntablythird-partyaudits,toverifysecuritymeasures.\n\u2022 IssueResolution: Demon..."
+                    },
+                    {
+                        "source": "Open_Source_Software_Best_Practices_and_Supply_Chain_Risk_Management.pdf",
+                        "content": "stein,2018).\nThe process often includes creating a distinct OSS developer community (OSS-\nDC) for the forked version, allowing the organisation to focus on modifying or\nenhancing specific components o..."
+                    }
+                ],
+                "confidence": "low",
+                "timestamp": "2025-08-03T14:05:55.273117+00:00"
+            },
+            {
+                "role": "user",
+                "content": "elaborate on what oss is",
+                "timestamp": "2025-08-03T14:19:43.622225+00:00"
+            },
+            {
+                "role": "assistant",
+                "content": "Based on the provided text, OSS refers to Open Source Software.  The documents discuss best practices and risk management related to using OSS components in software development, including licensing, community engagement, and the use of various maturity models for evaluating OSS components.",
+                "sources": [
+                    {
+                        "source": "Open_Source_Software_Best_Practices_and_Supply_Chain_Risk_Management.pdf",
+                        "content": "e engagement with the OSS community to attract new talent,\n4\nlevel the competitive playing field, foster innovation, improve reputation,\nandensurehigh-qualityOSScomponentsandasustainableOSSecosystem.\n..."
+                    },
+                    {
+                        "source": "Open_Source_Software_Best_Practices_and_Supply_Chain_Risk_Management.pdf",
+                        "content": ": The interviewees were asked about their strate-\ngies for OSS licensing and the tools they utilise to manage OSS projects,\nvulnerabilities,anddependencymanagementeffectively.\n5. Community Engagement:..."
+                    },
+                    {
+                        "source": "Open_Source_Software_Best_Practices_and_Supply_Chain_Risk_Management.pdf",
+                        "content": "ot reliant on an individual developer\u2019s discretion.\nThis shift would transfer the decision-making process from the developer to the\norganisation, shifting the burden of responsibility from the develop..."
+                    },
+                    {
+                        "source": "Open_Source_Software_Best_Practices_and_Supply_Chain_Risk_Management.pdf",
+                        "content": "nprocess,astheyallowforevalu-\nating OSS components before they are integrated into the organisation\u2019s systems.\nWe found that there are several maturity models for evaluating OSS components;\nhowever,th..."
+                    },
+                    {
+                        "source": "Open_Source_Software_Best_Practices_and_Supply_Chain_Risk_Management.pdf",
+                        "content": "ives to get a broad view of OSS within different organisations. Our\ntotalinterviewcountwaseight.\nTo find a broad range of interviewee, from varying backgrounds and sectors,\nwe connected with people on..."
+                    }
+                ],
+                "confidence": "low",
+                "timestamp": "2025-08-03T14:19:44.637255+00:00"
+            },
+            {
+                "role": "user",
+                "content": "what is the overview of this pdf",
+                "timestamp": "2025-08-03T14:34:32.075899+00:00"
+            },
+            {
+                "role": "assistant",
+                "content": "The provided text is a list of citations from a PDF titled \"Open_Source_Software_Best_Practices_and_Supply_Chain_Risk_Management.pdf\".  The citations cover various sources discussing open-source software, its impact from tech giants, vulnerability assessments,  the use of open source in different sectors (financial services, public sector), and the role of SBOMs (Software Bill of Materials) in supply chain risk management.  A complete overview of the PDF's content is not possible based solely on the provided list of references.",
+                "sources": [
+                    {
+                        "source": "Open_Source_Software_Best_Practices_and_Supply_Chain_Risk_Management.pdf",
+                        "content": "tps://www.forbes.com/sites/\nadrianbridgwater/2019/09/07/the-impact-of-the-tech-\ngiants-on-open-source/(visitedon09/07/2019).\nHabusha, David (2019). Personal Communication. Vice President, WhiteSource...."
+                    },
+                    {
+                        "source": "Open_Source_Software_Best_Practices_and_Supply_Chain_Risk_Management.pdf",
+                        "content": "ource Software\u201d. In: Man-\nagement Science 1. URL: https://pubsonline.informs.org/doi/\nabs/10.1287/mnsc.1070.0748.\nVarian, Hal R. et al. (Dec. 2003). Linux Adoption in the Public Sector: An Eco-\nnomic ..."
+                    },
+                    {
+                        "source": "Open_Source_Software_Best_Practices_and_Supply_Chain_Risk_Management.pdf",
+                        "content": "4-03-04. URL: https://todogroup.\norg/resources/case-studies/uber/(visitedon03/04/2024).\nHsieh,Brian(n.d.).UberandOpenSource.TODOGroupCaseStudies.Available\nat:https://todogroup.org/resources/case-studi..."
+                    },
+                    {
+                        "source": "Open_Source_Software_Best_Practices_and_Supply_Chain_Risk_Management.pdf",
+                        "content": "ntureBeat. URL: https://venturebeat.com/2021/04/\n13/synopsys-84-of-codebases-contain-an-open-source-\nvulnerability/.\nHackerone (Jan. 2024). What Is Vulnerability Assessment? Benefits, Tools, and\nProce..."
+                    },
+                    {
+                        "source": "Open_Source_Software_Best_Practices_and_Supply_Chain_Risk_Management.pdf",
+                        "content": "-\ntrybuildssoftware?https://www.cybersecuritydive.com/news/\nsolarwinds-1-year-later-cyber-attack-orion/610990/.\nPublishedDec.14,2021.\nThe White House (n.d.). Executive Order on Improving the Nation\u2019s ..."
+                    }
+                ],
+                "confidence": "low",
+                "timestamp": "2025-08-03T14:34:33.388237+00:00"
+            },
+            {
+                "role": "user",
+                "content": "what is this pdf",
+                "timestamp": "2025-08-03T14:34:48.855016+00:00"
+            },
+            {
+                "role": "assistant",
+                "content": "This PDF is an invoice from July 10, 2025, for the Cat Welfare Society.",
+                "sources": [
+                    {
+                        "source": "Invoice_10th_July_2025.pdf",
+                        "content": "Invoice\n10 July 2025\nInvoice No. 2025 -0024\nBILL TO:\nCat Welfare Society\nDESCRIPTION PRICE SUBTOTAL\nPCSP - JTV - Cat (1) Transport Service\n$60 $60\nfor Nur Azizah binte Abdullah\nS310056\nPCSP - JTV - Ca..."
+                    }
+                ],
+                "confidence": "low",
+                "timestamp": "2025-08-03T14:34:49.490422+00:00"
             }
         ],
-        "created_at": "2025-08-03T10:41:53.580556+00:00",
-        "title": "Hello"
+        "created_at": "2025-08-03T12:01:41.308560+00:00",
+        "title": "Meaning of SBOM"
+    },
+    "39066146-0b80-48a7-8cc2-c6e166515e20": {
+        "messages": [],
+        "created_at": "2025-08-03T17:11:50.064909+00:00",
+        "title": "New Chat"
     }
 }
