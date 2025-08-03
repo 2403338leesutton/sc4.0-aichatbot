@@ -342,10 +342,31 @@ def init_routes(app):
     @app.route('/api/sessions/<session_id>/export', methods=['GET'])
     def export_chat(session_id):
         try:
-            # Access global variable
-            from app import chat_sessions
-            result_data, status_code = export_session_chat_service(session_id, chat_sessions)
-            return jsonify(result_data), status_code
+            # Access global chat sessions dictionary
+            from app import chat_sessions # Make sure chat_sessions is accessible
+
+            # --- Use the service function (if you have services.py) ---
+            # from services import export_session_chat_service
+            # result_data, status_code = export_session_chat_service(session_id, chat_sessions)
+            # return jsonify(result_data), status_code
+            # --- OR, implement the logic directly here (simpler for now) ---
+
+            session = chat_sessions.get(session_id)
+            if not session:
+                return jsonify({"error": "Session not found"}), 404
+
+            chat_messages = session.get("messages", [])
+            lines = []
+            for msg in chat_messages:
+                role = msg.get('role', 'Unknown').capitalize()
+                content = msg.get('content', '[No Content]')
+                lines.append(f"{role}: {content}")
+            chat_data_as_text = "\n\n".join(lines)
+
+            # Return the chat data as plain text or in a JSON structure
+            # Returning JSON is generally safer for API endpoints
+            return jsonify({"chat_data": chat_data_as_text}), 200
+
         except Exception as e:
             current_app.logger.error(f"Error exporting chat for session {session_id}: {e}", exc_info=True)
             return jsonify({"error": f"Failed to export chat: {str(e)}"}), 500

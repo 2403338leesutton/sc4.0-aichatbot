@@ -36,6 +36,10 @@ function App() {
   const [contextMenuPosition, setContextMenuPosition] = useState({ x: 0, y: 0 });
   // --- End State for Context Menu ---
 
+  // --- New State for Exporting ---
+  const [isExporting, setIsExporting] = useState(false);
+  // --- End New State ---
+
   const fileInputRef = useRef(null);
   const messagesEndRef = useRef(null);
   const contextMenuRef = useRef(null);
@@ -134,13 +138,14 @@ function App() {
           fetchSessions(),
           fetchModels()
         ]);
+        // ... (existing optional auto-load logic) ...
       } catch (error) {
         console.error("Error during initialization:", error);
       }
     };
 
     initializeApp();
-  }, []);
+  }, []); // Run only once on mount
 
   // --- API Calls ---
   const fetchDocuments = async () => {
@@ -149,6 +154,7 @@ function App() {
       setDocuments(response.data);
     } catch (error) {
       console.error('Error fetching documents:', error);
+      // Optionally, show an error message to the user
     }
   };
 
@@ -156,8 +162,13 @@ function App() {
     try {
       const response = await axios.get(`${API_BASE_URL}/sessions`);
       setSessions(response.data);
+      // If no current session is set and sessions exist, you could auto-select the latest one here
+      // if (!currentSessionId && response.data.length > 0) {
+      //   await loadSession(response.data[0].session_id);
+      // }
     } catch (error) {
       console.error('Error fetching sessions:', error);
+      // Optionally, show an error message to the user
     }
   };
 
@@ -167,9 +178,9 @@ function App() {
       const response = await axios.post(`${API_BASE_URL}/sessions`);
       const newSessionId = response.data.session_id;
       setCurrentSessionId(newSessionId);
-      setMessages([]);
-      setSelectedDocumentIds([]);
-      await fetchSessions();
+      setMessages([]); // Clear messages for the new session in the UI
+      setSelectedDocumentIds([]); // Clear document selection when starting a new session
+      await fetchSessions(); // Refresh the session list in the sidebar
       console.log("New session created:", newSessionId);
     } catch (error) {
       console.error('Error creating new session:', error);
@@ -184,8 +195,9 @@ function App() {
     try {
       const response = await axios.get(`${API_BASE_URL}/sessions/${sessionId}`);
       setCurrentSessionId(sessionId);
+      // Set messages from the loaded session data
       setMessages(response.data.session.messages || []);
-      setSelectedDocumentIds([]);
+      setSelectedDocumentIds([]); // Clear document selection when loading a session
       console.log("Loaded session:", sessionId);
     } catch (error) {
       console.error('Error loading session:', error);
@@ -193,27 +205,34 @@ function App() {
     }
   };
 
-  // --- Updated handleFileUpload for PDFs and Images ---
+  // --- Updated handleFileUpload for Multiple Files ---
   const handleFileUpload = async (event) => {
     const files = Array.from(event.target.files);
     if (files.length === 0) return;
 
     // --- Update allowed file types ---
-    const allowedTypes = ['application/pdf', 'image/png', 'image/jpeg', 'image/jpg', 'image/gif', 'image/bmp', 'image/tiff', 'image/webp'];
-    const invalidFiles = files.filter(file => !allowedTypes.includes(file.type));
+    const invalidFiles = files.filter(file => {
+        const fileType = file.type;
+        const fileName = file.name.toLowerCase();
+        const isValidPdf = fileType === 'application/pdf';
+        const isValidImage = fileType.startsWith('image/') &&
+                              ['png', 'jpg', 'jpeg', 'gif', 'bmp', 'tiff', 'webp'].includes(fileName.split('.').pop());
+        return !(isValidPdf || isValidImage);
+    });
+    // --- End Update allowed file types ---
     if (invalidFiles.length > 0) {
         alert(`Please upload only PDF or image files. Invalid files: ${invalidFiles.map(f => f.name).join(', ')}`);
+        // Clear the input so the same invalid files don't trigger the error again immediately
         if (fileInputRef.current) fileInputRef.current.value = '';
         return;
     }
-    // --- End Update allowed file types ---
 
     setIsUploading(true);
     const uploadPromises = [];
 
     for (const file of files) {
         const formData = new FormData();
-        // --- Determine endpoint and form field based on file type ---
+        // --- Determine endpoint and field name based on file type ---
         let uploadUrl = `${API_BASE_URL}/upload`; // Default to PDF endpoint
         let fieldName = 'pdf'; // Default field name for PDF
 
@@ -231,7 +250,7 @@ function App() {
             }
         }).then(response => {
             console.log(`Upload response for ${file.name}:`, response.data);
-            return { success: true, filename: file.name, data: response.data };
+            return { success: true, filename: file.name };
         }).catch(error => {
             console.error(`Upload error for ${file.name}:`, error);
             return { success: false, filename: file.name, error: error.message };
@@ -263,8 +282,10 @@ function App() {
   const toggleDocumentSelection = (docId) => {
     setSelectedDocumentIds(prev => {
       if (prev.includes(docId)) {
+        // If already selected, remove it
         return prev.filter(id => id !== docId);
       } else {
+        // If not selected, add it
         return [...prev, docId];
       }
     });
@@ -294,23 +315,32 @@ function App() {
       console.log("Fetched models:", response.data);
     } catch (error) {
       console.error('Error fetching models:', error);
+      // Optionally, show an error message to the user
+      // alert('Failed to fetch available models.');
     }
   };
 
   const changeModel = async (newModelName) => {
-    if (!newModelName || newModelName === currentModel) return;
+    if (!newModelName || newModelName === currentModel) {
+      return; // No change needed
+    }
     setIsChangingModel(true);
     try {
       const response = await axios.post(`${API_BASE_URL}/models`, { model_name: newModelName });
       console.log("Model change response:", response.data);
+      // Update local state
       setCurrentModel(newModelName);
+      // Optional: Show success message
+      // alert(`Model changed to ${newModelName}`);
     } catch (error) {
       console.error('Error changing model:', error);
-      if (error.response?.data?.error) {
+      // Show user-friendly error
+      if (error.response && error.response.data && error.response.data.error) {
         alert(`Failed to change model: ${error.response.data.error}`);
       } else {
         alert('Failed to change model. Please try again.');
       }
+      // Re-fetch to ensure state consistency
       await fetchModels();
     } finally {
       setIsChangingModel(false);
@@ -319,18 +349,24 @@ function App() {
 
   const clearCurrentChat = () => {
     if (!currentSessionId) {
+      // If somehow there's no session, just clear local state
       setMessages([]);
       return;
     }
+    // Clear messages in the local state
     setMessages([]);
+    // Optional: You could also call a backend endpoint to clear messages
+    // on the server for this session, but clearing local state is simpler
+    // and sufficient for most UX needs.
     console.log(`Cleared chat messages for session ${currentSessionId}`);
   };
 
   // --- Context Menu Functions ---
   const openContextMenu = (e, sessionId) => {
-    e.preventDefault();
+    e.preventDefault(); // Prevent default context menu
     setContextMenuVisible(true);
     setContextMenuSessionId(sessionId);
+    // Position the menu near the click
     setContextMenuPosition({ x: e.clientX, y: e.clientY });
   };
 
@@ -347,7 +383,9 @@ function App() {
     const newName = prompt("Enter new session name:", session.title);
     if (newName !== null && newName.trim() !== "" && newName !== session.title) {
       try {
+        // --- Call PUT endpoint to rename ---
         await axios.put(`${API_BASE_URL}/sessions/${contextMenuSessionId}`, { title: newName.trim() });
+        // --- Update local state ---
         setSessions(prevSessions =>
           prevSessions.map(s =>
             s.session_id === contextMenuSessionId ? { ...s, title: newName.trim() } : s
@@ -363,14 +401,15 @@ function App() {
   };
 
   const deleteSession = async (sessionIdToDelete) => {
+    // Use the ID passed in, or the one from context menu state
     const idToDelete = sessionIdToDelete || contextMenuSessionId;
     if (!idToDelete) return;
 
     setIsDeletingSession(prev => ({ ...prev, [idToDelete]: true }));
 
     try {
-      await axios.delete(`${API_BASE_URL}/sessions/${idToDelete}`);
-      console.log("Delete session response:", idToDelete);
+      const response = await axios.delete(`${API_BASE_URL}/sessions/${idToDelete}`);
+      console.log("Delete session response:", response.data);
 
       setSessions(prevSessions => prevSessions.filter(s => s.session_id !== idToDelete));
 
@@ -378,13 +417,14 @@ function App() {
         setCurrentSessionId(null);
         setMessages([]);
       }
+      // Close menu if it was for this session
       if (idToDelete === contextMenuSessionId) {
           closeContextMenu();
       }
 
     } catch (error) {
       console.error('Error deleting session:', error);
-      if (error.response?.data?.error) {
+      if (error.response && error.response.data && error.response.data.error) {
         alert(`Failed to delete session: ${error.response.data.error}`);
       } else {
         alert('Failed to delete session. Please try again.');
@@ -416,11 +456,10 @@ function App() {
       setDocuments(prevDocs => prevDocs.filter(d => d.id !== docIdToDelete));
       // Optional: Show success message
       // alert('Document deleted.');
-
     } catch (error) {
       console.error('Error deleting document (frontend):', error);
       // Show user-friendly error
-      if (error.response?.data?.error) {
+      if (error.response && error.response.data && error.response.data.error) {
         alert(`Failed to delete document: ${error.response.data.error}`);
       } else {
         alert('Failed to delete document. Please try again.');
@@ -434,14 +473,13 @@ function App() {
     }
   };
 
-
   // --- Speech Functions ---
   const startListening = () => {
     if (!sttSupported || !recognitionRef.current) {
-      alert("Speech-to-Text is not supported.");
+      alert("Speech-to-Text is not supported in your browser.");
       return;
     }
-    if (isListening) return;
+    if (isListening) return; // Prevent multiple starts
 
     try {
       setInputMessage('');
@@ -469,10 +507,10 @@ function App() {
 
   const speakText = (text) => {
     if (!ttsSupported) {
-      alert("Text-to-Speech is not supported.");
+      alert("Text-to-Speech is not supported in your browser.");
       return;
     }
-    if (!text) return;
+    if (!text || ttsState === 'speaking') return; // Don't speak if already speaking or text is empty
 
     try {
       if (window.speechSynthesis.speaking) {
@@ -480,10 +518,10 @@ function App() {
       }
 
       const utterance = new SpeechSynthesisUtterance(text);
-      utterance.lang = 'en-US';
-      utterance.rate = 1;
-      utterance.pitch = 1;
-      utterance.volume = 1;
+      utterance.lang = 'en-US'; // Set language
+      utterance.rate = 1;       // Speed (0.1 to 10)
+      utterance.pitch = 1;      // Pitch (0 to 2)
+      utterance.volume = 1;     // Volume (0 to 1)
 
       utterance.onstart = () => {
         setTtsState('speaking');
@@ -498,9 +536,11 @@ function App() {
       utterance.onerror = (event) => {
         console.error("Speech synthesis error:", event);
         setTtsState('idle');
+        // Optionally, show user feedback
+        // alert(`Text-to-Speech Error: ${event.error}`);
       };
 
-      utteranceRef.current = utterance;
+      utteranceRef.current = utterance; // Store reference
       window.speechSynthesis.speak(utterance);
     } catch (error) {
       console.error("Error initiating speech synthesis:", error);
@@ -534,36 +574,94 @@ function App() {
   };
   // --- End Speech Functions ---
 
+  // --- New Function: Export Chat ---
+  const exportChat = async () => {
+    if (!currentSessionId) return;
+
+    setIsExporting(true);
+
+    try {
+      // --- CALL THE ACTUAL EXPORT ENDPOINT ---
+      const response = await axios.get(`${API_BASE_URL}/sessions/${currentSessionId}/export`);
+      const chatData = response.data.chat_data; // Extract the text data
+
+      if (typeof chatData !== 'string') {
+           throw new Error("Received invalid data format for export.");
+      }
+
+      // Convert chat data to a downloadable format
+      const blob = new Blob([chatData], { type: 'text/plain;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      // Suggest .txt extension
+      link.download = `chat-export-${currentSessionId.substring(0, 8)}.txt`;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      URL.revokeObjectURL(url);
+
+      alert('Chat exported successfully as TXT!');
+
+    } catch (error) {
+      console.error('Error exporting chat:', error);
+      // Show user-friendly error
+      // --- IMPROVED ERROR HANDLING ---
+      if (error.response?.data?.error) {
+          alert(`Failed to export chat: ${error.response.data.error}`);
+      } else if (error.message.includes("invalid data format")) {
+           alert('Failed to export chat: Received unexpected data format from server.');
+      } else {
+          alert('Failed to export chat. Please try again.');
+      }
+      // --- END IMPROVED ERROR HANDLING ---
+    } finally {
+      setIsExporting(false);
+    }
+  };
+  // --- End New Function ---
+
   const handleSendMessage = async () => {
+    // Prevent sending if input is empty, already loading, or no session is selected
     if (!inputMessage.trim() || isLoading || !currentSessionId) return;
 
     const userMessage = {
         role: 'user',
         content: inputMessage,
-        timestamp: new Date().toISOString()
+        timestamp: new Date().toISOString() // Add a timestamp
     };
+    // Optimistically update the UI with the user's message
     setMessages(prev => [...prev, userMessage]);
-    setInputMessage('');
+    setInputMessage(''); // Clear the input field
     setIsLoading(true);
 
     try {
+      // --- Pass session_id AND selected document_ids ---
       const requestBody = {
         message: inputMessage,
         session_id: currentSessionId,
+        // Send selectedDocumentIds, or null/undefined if none selected (meaning search all)
+        // Sending an empty array [] usually means "search none", so we send null for "search all"
         document_ids: selectedDocumentIds.length > 0 ? selectedDocumentIds : null
       };
 
       const response = await axios.post(`${API_BASE_URL}/chat`, requestBody);
 
+      // The backend now returns only the new bot message object
       const botMessage = {
         role: 'assistant',
-        content: response.data.content || response.data.answer,
+        content: response.data.content || response.data.answer, // Handle potential key change
         sources: response.data.sources,
         confidence: response.data.confidence,
         timestamp: response.data.timestamp || new Date().toISOString()
       };
 
+      // Update the UI with the bot's response
       setMessages(prev => [...prev, botMessage]);
+      // Session history is managed and persisted on the backend
+
+      // Refresh session list to update message counts/titles if needed
+      // fetchSessions();
 
     } catch (error) {
       console.error('Chat error:', error);
@@ -613,7 +711,6 @@ function App() {
             {isChangingModel && <span className="changing-indicator">Changing...</span>}
           </div>
           {/* --- End Model Selector --- */}
-
 
           <button
             onClick={createNewSession}
@@ -669,12 +766,12 @@ function App() {
               <ul className="document-list">
                 {documents.map(doc => {
                   const isSelected = selectedDocumentIds.includes(doc.id);
-                  const isDeleting = isDeletingDocument[doc.id] || false;
+                  const isDeleting = isDeletingDocument[doc.id] || false; // Check deletion state
                   return (
                     <li
                       key={doc.id}
                       className={`document-item ${isSelected ? 'selected' : ''}`}
-                      onClick={() => toggleDocumentSelection(doc.id)}
+                      onClick={() => toggleDocumentSelection(doc.id)} // Click item to toggle
                     >
                       <div className="document-info">
                         {/* --- Add icon based on type --- */}
@@ -691,15 +788,16 @@ function App() {
                           checked={isSelected}
                           onChange={() => {}} // Handled by onClick on the li
                           className="document-checkbox"
-                          onClick={(e) => e.stopPropagation()}
+                          onClick={(e) => e.stopPropagation()} // Prevent li click from triggering twice
                         />
                         {/* --- End Individual Checkbox --- */}
+                        {/* Delete Button/Icon */}
                         <button
                           className="delete-button"
                           onClick={(e) => {
-                            e.stopPropagation();
+                            e.stopPropagation(); // Prevent li click
                             if (window.confirm(`Are you sure you want to delete '${doc.name}'?`)) {
-                              deleteDocument(doc.id);
+                              deleteDocument(doc.id); // This function needs backend endpoint
                             }
                           }}
                           disabled={isDeleting}
@@ -728,14 +826,14 @@ function App() {
             ) : (
               <ul className="session-list">
                 {sessions.map(session => {
-                 const isDeleting = isDeletingSession[session.session_id] || false;
+                 const isDeleting = isDeletingSession[session.session_id] || false; // Check deletion state
                  const isActive = session.session_id === currentSessionId;
                  return (
                   <li
                     key={session.session_id}
                     className={`session-item ${isActive ? 'active' : ''}`}
-                    onClick={() => !isDeleting && loadSession(session.session_id)}
-                    onContextMenu={(e) => openContextMenu(e, session.session_id)}
+                    onClick={() => !isDeleting && loadSession(session.session_id)} // Prevent load if deleting
+                    onContextMenu={(e) => openContextMenu(e, session.session_id)} // Right-click menu
                   >
                     <div className="session-info" onClick={(e) => e.stopPropagation()}>
                       <div className="session-title">{session.title}</div>
@@ -746,6 +844,7 @@ function App() {
                         <span className="message-count">({session.message_count} msgs)</span>
                       </div>
                     </div>
+                    {/* Context Menu Button */}
                     <button
                       className="context-menu-button"
                       onClick={(e) => {
@@ -799,7 +898,7 @@ function App() {
         {/* End Context Menu Popup */}
 
         <div className="chat-container">
-          {/* --- Modified Session Info Bar to include Clear and Delete Chat Buttons --- */}
+          {/* --- Modified Session Info Bar to include Clear, Export, and Delete Chat Buttons --- */}
           {currentSessionId && (
             <div className="session-info-bar">
               <div className="session-info">
@@ -814,6 +913,16 @@ function App() {
                 >
                   Clear Chat
                 </button>
+                {/* --- NEW EXPORT CHAT BUTTON --- */}
+                <button
+                  onClick={exportChat}
+                  disabled={isExporting || isLoading} // Disable while exporting or loading
+                  className="export-chat-button" // Use a specific class for styling
+                  title="Export chat as TXT"
+                >
+                  {isExporting ? 'Exporting Chat...' : 'Export Chat'}
+                </button>
+                {/* --- END NEW EXPORT CHAT BUTTON --- */}
                 <button
                   onClick={() => {
                     const currentSession = sessions.find(s => s.session_id === currentSessionId);
@@ -822,11 +931,11 @@ function App() {
                       deleteSession(currentSessionId);
                     }
                   }}
-                  disabled={isLoading || isDeletingSession[currentSessionId]}
+                  disabled={isLoading || isDeletingSession[currentSessionId]} // Disable if deleting
                   className="delete-session-button"
                   title="Delete this entire chat session"
                 >
-                  {isDeletingSession[currentSessionId] ? 'Deleting...' : 'Delete Chat'}
+                  {isDeletingSession[currentSessionId] ? 'Deleting...' : 'Delete Chat'} {/* Show deleting state */}
                 </button>
               </div>
             </div>
@@ -866,7 +975,7 @@ function App() {
                     {message.content}
                   </div>
 
-                  {/* --- Add Text-to-Speech Controls --- */}
+                  {/* --- Add Text-to-Speech Button for Bot Messages --- */}
                   {message.role === 'assistant' && ttsSupported && (
                     <div className="tts-controls">
                       {ttsState === 'speaking' ? (
@@ -919,7 +1028,7 @@ function App() {
                       )}
                     </div>
                   )}
-                  {/* --- End Text-to-Speech Controls --- */}
+                  {/* --- End Text-to-Speech Button --- */}
 
                   {message.sources && message.sources.length > 0 && (
                     <div className="sources">
@@ -963,7 +1072,7 @@ function App() {
                     onChange={(e) => setInputMessage(e.target.value)}
                     onKeyPress={handleKeyPress}
                     placeholder="Ask a question about your documents..."
-                    disabled={isLoading || isListening}
+                    disabled={isLoading || isListening} // Disable input while listening
                     rows="3"
                   />
                   {/* --- Speech-to-Text Button (In Input Area) --- */}
