@@ -1,0 +1,108 @@
+{
+    "2c694439-d6a5-4967-9436-9eada99999cb": {
+        "messages": [
+            {
+                "role": "user",
+                "content": "Hello",
+                "timestamp": "2025-08-03T10:41:57.469090+00:00"
+            },
+            {
+                "role": "assistant",
+                "content": "Hello.",
+                "sources": [
+                    {
+                        "source": "Open_Source_Software_Best_Practices_and_Supply_Chain_Risk_Management.pdf",
+                        "content": "Interviewee 5, Interviewee 6, and Interviewee 7 all mentioned that\nthey or their organisation do not contribute to the OSS community. They all felt\nobligated to contribute back to the OSS community bu..."
+                    },
+                    {
+                        "source": "Open_Source_Software_Best_Practices_and_Supply_Chain_Risk_Management.pdf",
+                        "content": ": The interviewees were asked about their strate-\ngies for OSS licensing and the tools they utilise to manage OSS projects,\nvulnerabilities,anddependencymanagementeffectively.\n5. Community Engagement:..."
+                    },
+                    {
+                        "source": "Open_Source_Software_Best_Practices_and_Supply_Chain_Risk_Management.pdf",
+                        "content": "ives to get a broad view of OSS within different organisations. Our\ntotalinterviewcountwaseight.\nTo find a broad range of interviewee, from varying backgrounds and sectors,\nwe connected with people on..."
+                    }
+                ],
+                "confidence": "low",
+                "timestamp": "2025-08-03T10:41:58.084925+00:00"
+            },
+            {
+                "role": "user",
+                "content": "What is SBOM",
+                "timestamp": "2025-08-03T10:42:06.681753+00:00"
+            },
+            {
+                "role": "assistant",
+                "content": "A Software Bill of Materials (SBOM) is a formal list of components used in a software system.  It tracks OSS components and their dependencies to manage security and compliance risks.  It provides visibility into the software supply chain, enabling identification and mitigation of potential security and licensing issues.",
+                "sources": [
+                    {
+                        "source": "Open_Source_Software_Best_Practices_and_Supply_Chain_Risk_Management.pdf",
+                        "content": "nefits of SBOMs\ninclude lower costs, reduced code bloat (unnecessarily long, slow, or otherwise\nwastefulofresources),andimprovedsecurity(UnitedStatesDepartmentofCom-\nmerce, 2021).), and ensuring a mor..."
+                    },
+                    {
+                        "source": "Open_Source_Software_Best_Practices_and_Supply_Chain_Risk_Management.pdf",
+                        "content": "pply\nchain, organisations are at risk of \u201cdependency hell\u201d; the bigger the system, the\nmore it grows, the more dependencies you integrate into the software (Mishra,\n2023). The lack of visibility into ..."
+                    },
+                    {
+                        "source": "Open_Source_Software_Best_Practices_and_Supply_Chain_Risk_Management.pdf",
+                        "content": "tyfeaturesandmea-\nsurable performance metrics. In contrast, Butler et al., 2022 analysis portrays the\napprovalprocessassomewhatambiguous,describingitasmorereliantonassess-\nmentanddiscretionthanonstric..."
+                    }
+                ],
+                "confidence": "low",
+                "timestamp": "2025-08-03T10:42:07.681009+00:00"
+            },
+            {
+                "role": "user",
+                "content": "Elaborate further",
+                "timestamp": "2025-08-03T10:42:29.740706+00:00"
+            },
+            {
+                "role": "assistant",
+                "content": "The provided text does not offer any information to elaborate on.  There is no question or statement preceding the word \"elaborate\" to provide context for an elaboration.",
+                "sources": [
+                    {
+                        "source": "Open_Source_Software_Best_Practices_and_Supply_Chain_Risk_Management.pdf",
+                        "content": "ource Software\u201d. In: Man-\nagement Science 1. URL: https://pubsonline.informs.org/doi/\nabs/10.1287/mnsc.1070.0748.\nVarian, Hal R. et al. (Dec. 2003). Linux Adoption in the Public Sector: An Eco-\nnomic ..."
+                    },
+                    {
+                        "source": "Open_Source_Software_Best_Practices_and_Supply_Chain_Risk_Management.pdf",
+                        "content": "-\ntrybuildssoftware?https://www.cybersecuritydive.com/news/\nsolarwinds-1-year-later-cyber-attack-orion/610990/.\nPublishedDec.14,2021.\nThe White House (n.d.). Executive Order on Improving the Nation\u2019s ..."
+                    },
+                    {
+                        "source": "Open_Source_Software_Best_Practices_and_Supply_Chain_Risk_Management.pdf",
+                        "content": "a-\ntion Administration\u2019s (NTIA) multi-stakeholder process (National Telecommuni-\ncations and Information Administration, n.d.). This work culminated in the US\ngovernment\u2019s issuance of an executive ord..."
+                    }
+                ],
+                "confidence": "low",
+                "timestamp": "2025-08-03T10:42:30.388707+00:00"
+            },
+            {
+                "role": "user",
+                "content": "Elaborate on SBOM further",
+                "timestamp": "2025-08-03T10:42:40.064999+00:00"
+            },
+            {
+                "role": "assistant",
+                "content": "A Software Bill of Materials (SBOM) is a list of open-source software (OSS) components used in a software product, including dependencies and licenses.  SBOMs provide visibility into the software supply chain, helping identify and mitigate security and licensing issues.  Benefits include lower costs, reduced code bloat, improved security, and a more secure software supply chain.  The two primary SBOM formats are SPDX and CycloneDX.  Creating an SBOM can be time-consuming, but automated generation and readily available tools can alleviate this.  The US government mandates SBOM use in federal software.",
+                "sources": [
+                    {
+                        "source": "Open_Source_Software_Best_Practices_and_Supply_Chain_Risk_Management.pdf",
+                        "content": "nefits of SBOMs\ninclude lower costs, reduced code bloat (unnecessarily long, slow, or otherwise\nwastefulofresources),andimprovedsecurity(UnitedStatesDepartmentofCom-\nmerce, 2021).), and ensuring a mor..."
+                    },
+                    {
+                        "source": "Open_Source_Software_Best_Practices_and_Supply_Chain_Risk_Management.pdf",
+                        "content": "pply\nchain, organisations are at risk of \u201cdependency hell\u201d; the bigger the system, the\nmore it grows, the more dependencies you integrate into the software (Mishra,\n2023). The lack of visibility into ..."
+                    },
+                    {
+                        "source": "Open_Source_Software_Best_Practices_and_Supply_Chain_Risk_Management.pdf",
+                        "content": "a-\ntion Administration\u2019s (NTIA) multi-stakeholder process (National Telecommuni-\ncations and Information Administration, n.d.). This work culminated in the US\ngovernment\u2019s issuance of an executive ord..."
+                    }
+                ],
+                "confidence": "low",
+                "timestamp": "2025-08-03T10:42:41.411639+00:00"
+            }
+        ],
+        "created_at": "2025-08-03T10:41:53.580556+00:00",
+        "title": "Hello"
+    }
+}

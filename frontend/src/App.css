@@ -1,0 +1,580 @@
+/* frontend/src/App.css */
+
+/* General Reset & Base Styles */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: #f0f2f5; /* Softer background */
+  color: #1d1f21;
+  height: 100vh;
+  overflow: hidden; /* Prevent double scrollbars */
+}
+
+.app {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Header */
+.header {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); /* Attractive gradient */
+  color: white;
+  padding: 1rem 2rem; /* Increased padding */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  flex-shrink: 0; /* Prevent header from shrinking */
+  min-height: 70px; /* Minimum height for header */
+}
+
+.header h1 {
+  font-size: 1.5rem; /* Slightly larger title */
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem; /* Space between icon and text */
+}
+
+.header-controls {
+  display: flex;
+  gap: 1rem; /* Space between buttons */
+  align-items: center;
+}
+
+.header button {
+  background-color: rgba(255, 255, 255, 0.2); /* Semi-transparent background */
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  padding: 0.6rem 1.2rem; /* More comfortable padding */
+  border-radius: 20px; /* Pill-shaped buttons */
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.header button:hover:not(:disabled) {
+  background-color: rgba(255, 255, 255, 0.3);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.header button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Main Content Area */
+.main-content {
+  display: flex;
+  flex: 1;
+  overflow: hidden; /* Contain children */
+  padding: 1.5rem; /* Overall padding */
+  gap: 1.5rem; /* Space between sidebar and chat */
+  background-color: #f0f2f5;
+}
+
+/* Sidebar */
+.sidebar {
+  width: 320px; /* Slightly wider */
+  background-color: white;
+  padding: 1.5rem; /* More padding inside */
+  border-radius: 12px; /* Rounded corners */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem; /* Space between sections */
+  overflow-y: auto; /* Scroll if content is too tall */
+  flex-shrink: 0; /* Prevent sidebar from shrinking */
+  max-height: calc(100vh - 120px); /* Limit height */
+}
+
+.sidebar h3 {
+  margin: 0 0 1rem 0; /* Space only below */
+  color: #333;
+  font-size: 1.1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* For potential icons/buttons */
+}
+
+.sidebar > div {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+/* --- Document Selection Styles --- */
+/* Styles for the header section containing the title and selection controls */
+.sidebar-section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.75rem;
+}
+
+.sidebar-section-header h3 {
+  margin: 0;
+  font-size: 1.1rem;
+}
+
+/* Container for the selection count and clear button */
+.document-selection-controls {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.85rem;
+}
+
+/* Text showing how many documents are selected */
+.selected-count {
+  color: #667eea;
+  font-weight: 500;
+}
+
+/* Style for the "Clear" selection button */
+.clear-selection-button {
+  background-color: #f1f3f4; /* Light grey */
+  color: #5f6368; /* Dark grey text */
+  border: 1px solid #dadce0; /* Light border */
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.8rem;
+  transition: background-color 0.2s;
+}
+
+.clear-selection-button:hover:not(:disabled) {
+  background-color: #e8eaed; /* Slightly darker on hover */
+}
+
+.clear-selection-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Document List */
+.document-list, .session-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  flex: 1;
+  overflow-y: auto; /* Scroll individual lists if needed */
+}
+
+/* Individual Document Item */
+.document-item, .session-item {
+  padding: 1rem; /* More padding */
+  border: 1px solid #e4e6eb;
+  border-radius: 8px;
+  margin-bottom: 0.75rem; /* Space between items */
+  background-color: #f8f9fa;
+  transition: all 0.2s ease;
+  cursor: pointer;
+  font-size: 0.9rem;
+  display: flex; /* Use flexbox for layout */
+  justify-content: space-between; /* Put info on left, checkbox on right */
+  align-items: flex-start; /* Align items to the top */
+  position: relative; /* For potential pseudo-elements */
+}
+
+.document-item:hover, .session-item:hover {
+  background-color: #e4e6eb;
+  border-color: #667eea;
+  /* transform: translateX(3px); */ /* Optional: Subtle hover effect, might conflict with selection */
+}
+
+.document-item:last-child, .session-item:last-child {
+  margin-bottom: 0; /* No margin on last item */
+}
+
+/* Visual indication for selected documents */
+.document-item.selected {
+  background-color: #e0e7ff; /* Light blue background */
+  border-color: #667eea; /* Blue border */
+}
+
+.document-item.selected:hover {
+  background-color: #dbe4ff; /* Slightly different shade on hover for selected */
+}
+
+/* Container for the document name and chunk count */
+.document-info {
+  flex-grow: 1;
+  min-width: 0; /* Allow text truncation if needed */
+}
+
+.document-name {
+  display: block;
+  font-weight: 500;
+  margin-bottom: 0.25rem;
+  color: #333;
+  word-break: break-word; /* Handle long names */
+}
+
+.chunk-count, .session-meta {
+  font-size: 0.8rem;
+  color: #65676b;
+}
+
+/* Style the document name when selected */
+.document-item.selected .document-name {
+  font-weight: 600; /* Make name bolder when selected */
+  color: #4f46e5; /* Darker blue for name */
+}
+
+/* Style for the checkbox */
+.document-checkbox {
+  margin-left: 0.75rem;
+  margin-top: 0.25rem; /* Align with text */
+  cursor: pointer;
+  flex-shrink: 0; /* Prevent checkbox from shrinking */
+}
+
+/* Session List Items (existing styles, potentially refined) */
+.session-meta {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 0.25rem;
+}
+
+.session-title {
+  font-weight: 500;
+  color: #333;
+  word-break: break-word;
+}
+
+.session-item.active {
+  background-color: #e0e7ff; /* Highlight active session */
+  border-color: #667eea;
+}
+
+/* Chat History Header */
+.chat-history-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.refresh-button {
+  background: none;
+  border: none;
+  color: #667eea;
+  cursor: pointer;
+  font-size: 1.2rem;
+  padding: 0.2rem;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s;
+}
+
+.refresh-button:hover {
+  background-color: #e4e6eb;
+}
+
+/* Chat Container */
+.chat-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  overflow: hidden; /* Contain children */
+  max-height: calc(100vh - 120px); /* Limit height */
+}
+
+/* Session Info Bar */
+.session-info {
+  background-color: #e0e7ff;
+  color: #4f46e5;
+  padding: 0.75rem 1.5rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+  border-bottom: 1px solid #c7d2fe;
+  flex-shrink: 0;
+}
+
+/* Messages Area */
+.messages {
+  flex: 1;
+  padding: 1.5rem; /* More padding */
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem; /* Space between messages */
+  background: linear-gradient(135deg, #f5f7fa 0%, #e4e7f1 100%); /* Subtle background */
+}
+
+.welcome-message {
+  text-align: center;
+  color: #555;
+  margin: auto;
+  max-width: 600px;
+  padding: 2rem;
+  background-color: rgba(255, 255, 255, 0.7);
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+.welcome-message h2 {
+  color: #667eea;
+  margin-bottom: 1rem;
+}
+
+.welcome-message h3 {
+  color: #667eea;
+  margin-top: 1.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.welcome-message p {
+  margin-bottom: 0.75rem;
+  line-height: 1.5;
+}
+
+.instructions ol {
+  text-align: left;
+  margin: 1rem 0;
+  padding-left: 1.5rem;
+}
+
+.instructions li {
+  margin-bottom: 0.5rem;
+  line-height: 1.4;
+}
+
+.start-chat-button {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 25px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 1rem;
+  margin: 1rem 0;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.start-chat-button:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.select-session-prompt {
+  text-align: center;
+  color: #65676b;
+  padding: 1rem;
+  font-style: italic;
+}
+
+/* Individual Messages */
+.message {
+  max-width: 85%; /* Slightly wider messages */
+  padding: 1.25rem; /* More padding */
+  border-radius: 16px; /* More rounded corners */
+  line-height: 1.6;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08); /* Subtle shadow */
+  position: relative;
+  animation: fadeInSlideUp 0.3s ease-out;
+  word-wrap: break-word; /* Handle long words/URLs */
+}
+
+@keyframes fadeInSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.message.user {
+  align-self: flex-end;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); /* Gradient for user */
+  color: white;
+  border-bottom-right-radius: 4px; /* Sharp corner pointing to sender */
+}
+
+.message.assistant {
+  align-self: flex-start;
+  background-color: white; /* White background for bot */
+  border: 1px solid #e4e6eb; /* Subtle border */
+  color: #1d1f21;
+  border-bottom-left-radius: 4px; /* Sharp corner pointing to sender */
+}
+
+/* Sources Section */
+.sources {
+  margin-top: 1.25rem; /* More space above sources */
+  padding: 1.25rem; /* More padding */
+  background-color: #e8f0fe; /* Light blue background */
+  border-radius: 12px; /* Rounded corners */
+  font-size: 0.95rem; /* Slightly larger text */
+  border-left: 4px solid #667eea; /* Accent border */
+}
+
+.sources h4 {
+  margin-top: 0;
+  margin-bottom: 0.75rem;
+  color: #4f46e5; /* Matching accent color */
+  font-size: 1.05rem;
+}
+
+.source-item {
+  margin-bottom: 1rem; /* More space between sources */
+  padding: 1rem; /* More padding */
+  background-color: white;
+  border-radius: 8px;
+  border: 1px solid #d1d5db;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.source-item:last-child {
+  margin-bottom: 0; /* No margin on last item */
+}
+
+.source-item strong {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: #4f46e5;
+  font-size: 0.95rem;
+}
+
+.source-item p {
+  margin: 0;
+  font-size: 0.9rem;
+  color: #4b5563;
+  line-height: 1.5;
+}
+
+/* Typing Indicator */
+.typing-indicator {
+  color: #667eea;
+  font-weight: 500;
+  font-style: italic;
+}
+
+/* Input Area */
+.input-area {
+  padding: 1.5rem; /* More padding */
+  border-top: 1px solid #e4e6eb;
+  background-color: white;
+  display: flex;
+  gap: 1rem; /* More space between input and button */
+  flex-shrink: 0; /* Prevent input area from shrinking */
+}
+
+.input-area textarea {
+  flex: 1;
+  padding: 1rem; /* More padding */
+  border: 2px solid #e4e6eb;
+  border-radius: 16px; /* More rounded */
+  resize: none;
+  font-family: inherit;
+  font-size: 1rem;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  min-height: 60px; /* Minimum height */
+}
+
+.input-area textarea:focus {
+  outline: none;
+  border-color: #667eea;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.send-button {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  padding: 0 1.5rem; /* Wider button */
+  border-radius: 16px; /* Match input rounding */
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 100px; /* Minimum button width */
+}
+
+.send-button:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
+}
+
+.send-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .main-content {
+    flex-direction: column;
+    padding: 1rem;
+    gap: 1rem;
+  }
+
+  .sidebar {
+    width: 100%;
+    max-height: 40vh;
+  }
+
+  .header {
+    flex-direction: column;
+    gap: 1rem;
+    text-align: center;
+    padding: 1rem;
+  }
+
+  .header-controls {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .message {
+    max-width: 90%;
+  }
+
+  .input-area {
+    padding: 1rem;
+  }
+}
+
+/* Utility Classes */
+.no-documents, .no-sessions {
+  color: #65676b;
+  font-style: italic;
+  text-align: center;
+  padding: 1rem;
+  margin: 0.5rem 0;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  border: 1px dashed #e4e6eb;
+}
