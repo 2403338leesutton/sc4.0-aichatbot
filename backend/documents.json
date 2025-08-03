@@ -1,5 +1,27 @@
 [
     {
+        "id": "c0507ec9-9a2e-4550-974c-a57dc0582d66",
+        "name": "image_2.png",
+        "uploaded_at": "2025-08-03T23:03:31.332544+00:00",
+        "chunks_count": 1,
+        "file_path": "uploads\\4892a8e9-1ad7-49e2-b71f-ffcb5e4218e2_image_2.png",
+        "type": "image"
+    },
+    {
+        "id": "884b356e-e1ff-4db4-91a8-b40cfd40f184",
+        "name": "DSC2101-AY24-Tri3-Topic09.pdf",
+        "uploaded_at": "2025-08-03T22:55:37.606022+00:00",
+        "chunks_count": 10,
+        "file_path": "uploads\\ed92c772-7ef4-44c5-90af-8fbdb647aac4_DSC2101-AY24-Tri3-Topic09.pdf"
+    },
+    {
+        "id": "b9c39cc7-868d-43c0-90be-21c38e867a94",
+        "name": "Open_Source_Software_Best_Practices_and_Supply_Chain_Risk_Management.pdf",
+        "uploaded_at": "2025-08-03T22:55:13.184005+00:00",
+        "chunks_count": 132,
+        "file_path": "uploads\\ba49ba8a-6a62-4efe-ac57-0fc80f587d09_Open_Source_Software_Best_Practices_and_Supply_Chain_Risk_Management.pdf"
+    },
+    {
         "id": "a1b25844-dec2-4b19-a0ba-7162499e83cf",
         "name": "DSC2101-AY24-Tri3-Topic09.pdf",
         "uploaded_at": "2025-08-03T16:10:58.054182+00:00",

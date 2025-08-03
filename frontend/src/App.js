@@ -35,9 +35,6 @@ function App() {
   const [contextMenuSessionId, setContextMenuSessionId] = useState(null);
   const [contextMenuPosition, setContextMenuPosition] = useState({ x: 0, y: 0 });
   // --- End State for Context Menu ---
-  
-  // --- New State for Exporting Chat ---
-  const [isExporting, setIsExporting] = useState(false);
 
   const fileInputRef = useRef(null);
   const messagesEndRef = useRef(null);
@@ -196,32 +193,45 @@ function App() {
     }
   };
 
-  // --- Updated handleFileUpload for Multiple Files ---
+  // --- Updated handleFileUpload for PDFs and Images ---
   const handleFileUpload = async (event) => {
     const files = Array.from(event.target.files);
     if (files.length === 0) return;
 
-    const invalidFiles = files.filter(file => !file.name.toLowerCase().endsWith('.pdf'));
+    // --- Update allowed file types ---
+    const allowedTypes = ['application/pdf', 'image/png', 'image/jpeg', 'image/jpg', 'image/gif', 'image/bmp', 'image/tiff', 'image/webp'];
+    const invalidFiles = files.filter(file => !allowedTypes.includes(file.type));
     if (invalidFiles.length > 0) {
-        alert(`Please upload only PDF files. Invalid files: ${invalidFiles.map(f => f.name).join(', ')}`);
+        alert(`Please upload only PDF or image files. Invalid files: ${invalidFiles.map(f => f.name).join(', ')}`);
         if (fileInputRef.current) fileInputRef.current.value = '';
         return;
     }
+    // --- End Update allowed file types ---
 
     setIsUploading(true);
     const uploadPromises = [];
 
     for (const file of files) {
         const formData = new FormData();
-        formData.append('pdf', file);
+        // --- Determine endpoint and form field based on file type ---
+        let uploadUrl = `${API_BASE_URL}/upload`; // Default to PDF endpoint
+        let fieldName = 'pdf'; // Default field name for PDF
 
-        const uploadPromise = axios.post(`${API_BASE_URL}/upload`, formData, {
+        if (file.type.startsWith('image/')) {
+            uploadUrl = `${API_BASE_URL}/upload/image`; // Use image endpoint
+            fieldName = 'image'; // Use 'image' field name
+        }
+        formData.append(fieldName, file);
+        // --- End Determine endpoint ---
+
+        // Create a promise for each upload
+        const uploadPromise = axios.post(uploadUrl, formData, {
             headers: {
                 'Content-Type': 'multipart/form-data'
             }
         }).then(response => {
             console.log(`Upload response for ${file.name}:`, response.data);
-            return { success: true, filename: file.name };
+            return { success: true, filename: file.name, data: response.data };
         }).catch(error => {
             console.error(`Upload error for ${file.name}:`, error);
             return { success: false, filename: file.name, error: error.message };
@@ -236,7 +246,7 @@ function App() {
         const failedUploads = results.filter(r => !r.success);
 
         if (successfulUploads.length > 0) {
-            await fetchDocuments();
+            await fetchDocuments(); // Refresh the document list once after all uploads
             alert(`Successfully uploaded ${successfulUploads.length} file(s).`);
         }
 
@@ -245,7 +255,7 @@ function App() {
         }
     } finally {
         setIsUploading(false);
-        if (fileInputRef.current) fileInputRef.current.value = '';
+        if (fileInputRef.current) fileInputRef.current.value = ''; // Clear the file input
     }
   };
   // --- End Updated handleFileUpload ---
@@ -314,51 +324,6 @@ function App() {
     }
     setMessages([]);
     console.log(`Cleared chat messages for session ${currentSessionId}`);
-  };
-
-  // --- New Function: Export Chat ---
-  const exportChat = async () => {
-    if (!currentSessionId) return;
-
-    setIsExporting(true);
-
-    try {
-      // --- CALL THE ACTUAL EXPORT ENDPOINT ---
-      const response = await axios.get(`${API_BASE_URL}/sessions/${currentSessionId}/export`);
-      const chatData = response.data.chat_data; // Extract the text data
-
-      if (typeof chatData !== 'string') {
-          throw new Error("Received invalid data format for export.");
-      }
-
-      // Convert chat data to a downloadable format
-      const blob = new Blob([chatData], { type: 'text/plain;charset=utf-8' });
-      const url = URL.createObjectURL(blob);
-      const link = document.createElement('a');
-      link.href = url;
-      link.download = `chat-export-${currentSessionId}.txt`; // Suggest .txt extension
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-      URL.revokeObjectURL(url);
-
-      alert('Chat exported successfully as TXT!');
-
-    } catch (error) {
-      console.error('Error exporting chat:', error);
-      // Show user-friendly error
-      // --- IMPROVED ERROR HANDLING ---
-      if (error.response?.data?.error) {
-          alert(`Failed to export chat: ${error.response.data.error}`);
-      } else if (error.message.includes("invalid data format")) {
-          alert('Failed to export chat: Received unexpected data format from server.');
-      } else {
-          alert('Failed to export chat. Please try again.');
-      }
-      // --- END IMPROVED ERROR HANDLING ---
-    } finally {
-      setIsExporting(false);
-    }
   };
 
   // --- Context Menu Functions ---
@@ -435,46 +400,40 @@ function App() {
   // --- End Context Menu Functions ---
 
   const deleteDocument = async (docIdToDelete) => {
-  if (!docIdToDelete) return;
-
-  // Check if the document is selected, and unselect it if it is
-  if (selectedDocumentIds.includes(docIdToDelete)) {
-    setSelectedDocumentIds(prev => prev.filter(id => id !== docIdToDelete));
-  }
-
-  // Optimistically update UI state for loading indicator
-  setIsDeletingDocument(prev => ({ ...prev, [docIdToDelete]: true }));
-
-  try {
-    // --- REMOVED PLACEHOLDER ERROR ---
-    // --- CALL THE ACTUAL DELETE ENDPOINT ---
-    const response = await axios.delete(`${API_BASE_URL}/documents/${docIdToDelete}`);
-    console.log("Delete document response:", response.data);
-
-    // Update local state
-    setDocuments(prevDocs => prevDocs.filter(d => d.id !== docIdToDelete));
-    // Optional: Show success message
-    // alert('Document deleted.');
-
-  } catch (error) {
-    console.error('Error deleting document (frontend):', error);
-    // Show user-friendly error
-    // Check for specific error messages from the backend first
-    if (error.response?.data?.error) {
-        alert(`Failed to delete document: ${error.response.data.error}`);
-    } else {
-        // Fallback for network errors or unexpected issues
-        alert('Failed to delete document. Please try again.');
+    if (!docIdToDelete) return;
+    if (selectedDocumentIds.includes(docIdToDelete)) {
+        setSelectedDocumentIds(prev => prev.filter(id => id !== docIdToDelete));
     }
-  } finally {
-    // Clear loading state for this document
-    setIsDeletingDocument(prev => {
-      const newState = { ...prev };
-      delete newState[docIdToDelete];
-      return newState;
-    });
-  }
-};
+
+    setIsDeletingDocument(prev => ({ ...prev, [docIdToDelete]: true }));
+
+    try {
+      // --- Call the DELETE endpoint ---
+      const response = await axios.delete(`${API_BASE_URL}/documents/${docIdToDelete}`);
+      console.log("Delete document response:", response.data);
+
+      // Update local state
+      setDocuments(prevDocs => prevDocs.filter(d => d.id !== docIdToDelete));
+      // Optional: Show success message
+      // alert('Document deleted.');
+
+    } catch (error) {
+      console.error('Error deleting document (frontend):', error);
+      // Show user-friendly error
+      if (error.response?.data?.error) {
+        alert(`Failed to delete document: ${error.response.data.error}`);
+      } else {
+        alert('Failed to delete document. Please try again.');
+      }
+    } finally {
+      setIsDeletingDocument(prev => {
+        const newState = { ...prev };
+        delete newState[docIdToDelete];
+        return newState;
+      });
+    }
+  };
+
 
   // --- Speech Functions ---
   const startListening = () => {
@@ -588,16 +547,11 @@ function App() {
     setIsLoading(true);
 
     try {
-      // --- Pass session_id AND selected document_ids ---
-      // --- Increase top_k dynamically ---
       const requestBody = {
         message: inputMessage,
         session_id: currentSessionId,
-        document_ids: selectedDocumentIds.length > 0 ? selectedDocumentIds : null,
-        // Example: Increase top_k if many docs are selected, with a cap
-        // top_k: Math.min(Math.max(selectedDocumentIds.length * 3, 5), 20) // e.g., 3-20
+        document_ids: selectedDocumentIds.length > 0 ? selectedDocumentIds : null
       };
-      // --- End Increase top_k ---
 
       const response = await axios.post(`${API_BASE_URL}/chat`, requestBody);
 
@@ -660,6 +614,7 @@ function App() {
           </div>
           {/* --- End Model Selector --- */}
 
+
           <button
             onClick={createNewSession}
             disabled={isCreatingSession || isLoading}
@@ -671,7 +626,9 @@ function App() {
             type="file"
             ref={fileInputRef}
             onChange={handleFileUpload}
-            accept=".pdf"
+            // --- Update accepted file types ---
+            accept=".pdf,image/*" // Accept PDFs and all image types
+            // --- End Update accepted file types ---
             multiple // Allow multiple file selection
             style={{ display: 'none' }}
           />
@@ -680,7 +637,7 @@ function App() {
             disabled={isUploading || isLoading}
             className="upload-button"
           >
-            {isUploading ? 'Uploading...' : 'Upload PDFs'}
+            {isUploading ? 'Uploading...' : 'Upload Files'} {/* Updated button text */}
           </button>
         </div>
       </header>
@@ -720,7 +677,11 @@ function App() {
                       onClick={() => toggleDocumentSelection(doc.id)}
                     >
                       <div className="document-info">
-                        <span className="document-name">📄 {doc.name}</span>
+                        {/* --- Add icon based on type --- */}
+                        <span className="document-name">
+                          {doc.type === 'image' ? '🖼️' : '📄'} {doc.name}
+                        </span>
+                        {/* --- End Add icon --- */}
                         <span className="chunk-count">({doc.chunks_count} chunks)</span>
                       </div>
                       <div className="document-actions">
@@ -737,7 +698,7 @@ function App() {
                           className="delete-button"
                           onClick={(e) => {
                             e.stopPropagation();
-                            if (window.confirm(`Are you sure you want to delete '${doc.name}'? This action requires backend implementation.`)) {
+                            if (window.confirm(`Are you sure you want to delete '${doc.name}'?`)) {
                               deleteDocument(doc.id);
                             }
                           }}
@@ -826,7 +787,7 @@ function App() {
                 if (window.confirm(`Are you sure you want to delete chat session '${sessionTitle}'?`)) {
                   deleteSession(contextMenuSessionId);
                 } else {
-                  closeContextMenu();
+                  closeContextMenu(); // Close menu if user cancels
                 }
               }}
               aria-label="Delete session"
@@ -867,15 +828,6 @@ function App() {
                 >
                   {isDeletingSession[currentSessionId] ? 'Deleting...' : 'Delete Chat'}
                 </button>
-                {/* --- NEW EXPORT CHAT BUTTON --- */}
-                <button
-                  onClick={exportChat}
-                  disabled={isExporting}
-                  className="export-chat-button"
-                  title="Export chat as TXT or PDF"
-                >
-                  {isExporting ? 'Exporting Chat...' : 'Export Chat'}
-                </button>
               </div>
             </div>
           )}
@@ -900,9 +852,9 @@ function App() {
                 <div className="instructions">
                   <h3>How to use:</h3>
                   <ol>
-                    <li>Click "Upload PDFs" to add documents</li>
+                    <li>Click "Upload Files" to add PDFs or images</li>
                     <li>Select documents to filter questions (optional)</li>
-                    <li>Ask questions in the chat box</li>
+                    <li>Ask questions in the chat box below</li>
                     <li>Get answers with source references</li>
                   </ol>
                 </div>
@@ -914,7 +866,7 @@ function App() {
                     {message.content}
                   </div>
 
-                  {/* --- Add Text-to-Speech Button for Bot Messages --- */}
+                  {/* --- Add Text-to-Speech Controls --- */}
                   {message.role === 'assistant' && ttsSupported && (
                     <div className="tts-controls">
                       {ttsState === 'speaking' ? (
@@ -967,12 +919,11 @@ function App() {
                       )}
                     </div>
                   )}
-                  {/* --- End Text-to-Speech Button --- */}
+                  {/* --- End Text-to-Speech Controls --- */}
 
-                  {/* --- Enhanced Sources Display --- */}
-                  {message.role === 'assistant' && message.sources && message.sources.length > 0 && (
+                  {message.sources && message.sources.length > 0 && (
                     <div className="sources">
-                      <h4>Sources Referenced:</h4>
+                      <h4>Sources:</h4>
                       <ul className="source-list">
                         {message.sources.map((source, idx) => (
                           <li key={idx} className="source-item">
@@ -986,7 +937,6 @@ function App() {
                       </ul>
                     </div>
                   )}
-                  {/* --- End Enhanced Sources Display --- */}
                 </div>
               ))
             )}

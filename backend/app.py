@@ -1,10 +1,16 @@
 # backend/app.py
+
 from flask import Flask, jsonify # Import jsonify here for global error handler
 from flask_cors import CORS
 import os
 from dotenv import load_dotenv
 import json
 import uuid # Might be needed for init if loading fails
+
+# --- Import OCR Libraries ---
+import pytesseract
+from PIL import Image
+# --- End Import OCR Libraries ---
 
 # Import the updated RAGSystem
 from utils.pdf_processor import extract_text_from_pdf, split_text_into_chunks # Might still be used in init or services
@@ -17,7 +23,7 @@ CORS(app)
 
 # --- Configuration ---
 UPLOAD_FOLDER = 'uploads'
-ALLOWED_EXTENSIONS = {'pdf'}
+ALLOWED_EXTENSIONS = {'pdf', 'png', 'jpg', 'jpeg', 'gif', 'bmp', 'tiff', 'webp'}
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.config['ALLOWED_EXTENSIONS'] = ALLOWED_EXTENSIONS # Add to config for access in routes/services
 
@@ -25,6 +31,23 @@ app.config['ALLOWED_EXTENSIONS'] = ALLOWED_EXTENSIONS # Add to config for access
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 # Ensure ChromaDB directory exists (handled by Chroma, but good to know)
 os.makedirs("./chroma_db", exist_ok=True)
+
+# --- Configure Tesseract Path ---
+# Check if TESSERACT_CMD is set in .env, otherwise rely on PATH or set a default (platform-specific logic can be added)
+TESSERACT_CMD = os.getenv('TESSERACT_CMD')
+if TESSERACT_CMD:
+    # Validate the path exists (basic check)
+    if os.path.exists(TESSERACT_CMD):
+        pytesseract.pytesseract.tesseract_cmd = TESSERACT_CMD
+        app.logger.info(f"Tesseract path set from .env: {TESSERACT_CMD}")
+    else:
+        app.logger.warning(f"Tesseract path from .env does not exist: {TESSERACT_CMD}. Falling back to PATH.")
+        # pytesseract will attempt to find 'tesseract' in the system PATH
+else:
+    app.logger.info("TESSERACT_CMD not set in .env. Relying on system PATH for Tesseract.")
+    # pytesseract will attempt to find 'tesseract' in the system PATH
+# --- End Configure Tesseract Path ---
+
 
 # --- Persistence for Document List ---
 DOCUMENTS_FILE = 'documents.json'
@@ -137,4 +160,11 @@ if __name__ == '__main__':
     print(f"Chat Sessions Persistence File: {CHAT_SESSIONS_FILE}")
     print(f"Available Models: {AVAILABLE_MODELS}")
     print(f"Initial Model: {CURRENT_MODEL_NAME}")
+    # --- Print Tesseract Info ---
+    try:
+        print(f"Tesseract Version: {pytesseract.get_tesseract_version()}")
+        print(f"Tesseract Executable Path: {pytesseract.pytesseract.tesseract_cmd}")
+    except Exception as e:
+        print(f"Could not get Tesseract info: {e}")
+    # --- End Print Tesseract Info ---
     app.run(debug=True, port=5000)

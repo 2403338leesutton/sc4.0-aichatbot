@@ -1,10 +1,18 @@
 # backend/routes/main_routes.py
+
 from flask import request, jsonify, current_app
 import os
+import uuid
+from datetime import datetime, timezone
 from werkzeug.utils import secure_filename
 import logging
 
-# --- Import service functions using ABSOLUTE imports ---
+# --- Import OCR and Chunking Utilities ---
+from utils.ocr_processor import ocr_image
+from utils.pdf_processor import split_text_into_chunks # Assuming this is where split_text_into_chunks lives
+# --- End Import Utilities ---
+
+# - Import service functions using ABSOLUTE imports -
 # Assuming the Flask app is run from the 'backend' directory,
 # the absolute path from there is 'services'
 from services import (
@@ -22,44 +30,155 @@ from services import (
     clear_all_data_service,
     export_session_chat_service
 )
+# - End Import Service Functions -
 
-# --- Import global variables/functions from app.py ---
+# - Import global variables/functions from app.py -
 # We need these within the route handlers.
 # These will be available in the global scope when app.py runs and calls these routes.
 # We access them inside the route functions.
-# from app import rag_system, documents, chat_sessions, save_documents, save_chat_sessions, AVAILABLE_MODELS, CURRENT_MODEL_NAME, UPLOAD_FOLDER # Don't import globally here, access inside functions
+# DO NOT import them globally here; access them inside functions using `from app import ...`
+# - End Import Globals -
 
 def init_routes(app):
     """Register all routes with the Flask app instance."""
 
     def allowed_file(filename):
-        return '.' in filename and filename.rsplit('.', 1)[1].lower() in app.config.get('ALLOWED_EXTENSIONS', {'pdf'})
+        # Access ALLOWED_EXTENSIONS from app config
+        # Ensure app.config['ALLOWED_EXTENSIONS'] includes image types
+        # This should be updated in app.py or services as needed.
+        # Example update in app.py config: {'pdf', 'png', 'jpg', 'jpeg'}
+        return '.' in filename and \
+               filename.rsplit('.', 1)[1].lower() in app.config.get('ALLOWED_EXTENSIONS', {'pdf'})
+
+    # --- Route Definitions ---
 
     @app.route('/')
     def home():
         return jsonify({"message": "SC4.0 AI Chatbot API Running with ChromaDB"})
 
+    # --- Modified PDF Upload Route (Ensure it uses updated allowed_file) ---
     @app.route('/api/upload', methods=['POST'])
     def upload_pdf():
         try:
             if 'pdf' not in request.files:
                 return jsonify({"error": "No file provided"}), 400
+
             file = request.files['pdf']
+
             if file.filename == '':
                 return jsonify({"error": "No file selected"}), 400
+
+            # Use the updated allowed_file function
             if not allowed_file(file.filename):
-                return jsonify({"error": "Only PDF files are allowed"}), 400
+                # Improve error message to reflect allowed types
+                allowed_exts = app.config.get('ALLOWED_EXTENSIONS', {'pdf'})
+                return jsonify({"error": f"File type not allowed. Allowed types: {', '.join(allowed_exts)}"}), 400
 
             # Access global variables needed by the service
             from app import rag_system, documents, save_documents, UPLOAD_FOLDER
-
-            return handle_pdf_upload_service(
-                file, UPLOAD_FOLDER, rag_system, documents, save_documents
-            )
-
+            return handle_pdf_upload_service(file, UPLOAD_FOLDER, rag_system, documents, save_documents)
         except Exception as e:
             current_app.logger.error(f"Error processing PDF upload: {e}")
             return jsonify({"error": f"Failed to process PDF: {str(e)}"}), 500
+    # --- End Modified PDF Upload Route ---
+
+    # --- New Route: Upload and Process Image ---
+    @app.route('/api/upload/image', methods=['POST'])
+    def upload_image():
+        """Handle image upload, perform OCR, and add text to RAG system."""
+        try:
+            # --- 1. Validate Request ---
+            if 'image' not in request.files:
+                return jsonify({"error": "No image file provided"}), 400
+
+            file = request.files['image']
+
+            if file.filename == '':
+                return jsonify({"error": "No image file selected"}), 400
+
+            # Use the updated allowed_file function which now includes image types
+            if not allowed_file(file.filename):
+                # Improve error message
+                allowed_exts = app.config.get('ALLOWED_EXTENSIONS', {'pdf'})
+                return jsonify({"error": f"File type not allowed. Allowed types: {', '.join(allowed_exts)}"}), 400
+
+            # --- 2. Save File ---
+            filename = secure_filename(file.filename)
+            # Prepend a UUID to avoid filename conflicts
+            unique_filename = f"{uuid.uuid4()}_{filename}"
+            # Access UPLOAD_FOLDER from app config
+            upload_folder = current_app.config['UPLOAD_FOLDER']
+            file_path = os.path.join(upload_folder, unique_filename)
+            file.save(file_path)
+            current_app.logger.info(f"Saved uploaded image: {filename} -> {file_path}")
+
+            # --- 3. Perform OCR ---
+            # Use default language 'eng', or make it configurable via request param if needed
+            # Access Tesseract configuration via pytesseract (configured in app.py)
+            extracted_text = ocr_image(file_path, lang='eng')
+
+            if not extracted_text.strip():
+                # If no text is found, clean up and inform user
+                os.remove(file_path) # Delete the uploaded image file
+                current_app.logger.warning(f"No text detected in image: {filename}")
+                return jsonify({"error": "No text could be detected in the uploaded image."}), 400
+
+            current_app.logger.info(f"OCR successful for {filename}. Extracted {len(extracted_text)} characters.")
+
+            # --- 4. Process Text (Chunking) ---
+            # Use the same chunking logic as PDFs, imported from utils.pdf_processor
+            chunks = split_text_into_chunks(extracted_text, chunk_size=1000)
+
+            # --- 5. Prepare Document Info and Chunks for RAG ---
+            doc_id = str(uuid.uuid4())
+            doc_info = {
+                'id': doc_id,
+                'name': filename, # Use original name for user display
+                'uploaded_at': datetime.now(timezone.utc).isoformat(),
+                'chunks_count': len(chunks),
+                'file_path': file_path, # Store path for potential future deletion or reference
+                'type': 'image' # Optional: Mark as image type
+            }
+
+            chunk_info = []
+            for i, chunk in enumerate(chunks):
+                chunk_data = {
+                    'id': f"{doc_id}-chunk-{i}",
+                    'doc_id': doc_id,
+                    'content': chunk.strip(),
+                    'source': filename,
+                    'chunk_index': i
+                }
+                chunk_info.append(chunk_data)
+
+            # --- 6. Add to RAG System and Document List ---
+            # Access global variables from app.py
+            from app import rag_system, documents, save_documents # Import needed globals
+
+            rag_system.add_document_chunks(chunk_info)
+            documents.append(doc_info) # Add to in-memory list
+            save_documents() # Persist the document list
+
+            current_app.logger.info(f"Added OCR-processed image '{filename}' (ID: {doc_id}) with {len(chunks)} chunks to RAG system.")
+
+            return jsonify({
+                "message": "Image uploaded, processed with OCR, and added successfully.",
+                "document_id": doc_id,
+                "chunks_count": len(chunks),
+                "filename": filename
+            }), 201 # 201 Created is appropriate
+
+        except Exception as e:
+            current_app.logger.error(f"Error processing image upload: {e}", exc_info=True)
+            # Attempt to clean up the uploaded file if it exists and an error occurred after saving
+            try:
+                if 'file_path' in locals() and os.path.exists(locals()['file_path']):
+                    os.remove(locals()['file_path'])
+                    current_app.logger.info(f"Cleaned up failed upload: {locals()['file_path']}")
+            except:
+                pass # Ignore cleanup errors
+            return jsonify({"error": f"Failed to process image: {str(e)}"}), 500
+    # --- End New Route ---
 
     @app.route('/api/documents', methods=['GET'])
     def get_documents():
@@ -77,12 +196,11 @@ def init_routes(app):
         try:
             # Access global variables needed by the service
             from app import rag_system, documents, save_documents, UPLOAD_FOLDER
-            result_data, status_code = delete_document_service(
-                doc_id, rag_system, documents, save_documents, UPLOAD_FOLDER
-            )
+            result_data, status_code = delete_document_service(doc_id, rag_system, documents, save_documents, UPLOAD_FOLDER)
             return jsonify(result_data), status_code
         except Exception as e:
             current_app.logger.error(f"Error deleting document {doc_id}: {e}")
+            # Return a generic error to the frontend
             return jsonify({"error": f"Failed to delete document: {str(e)}"}), 500
 
     @app.route('/api/sessions', methods=['POST'])
@@ -116,13 +234,17 @@ def init_routes(app):
             return jsonify(result_data), status_code
         except Exception as e:
             current_app.logger.error(f"Error fetching session {session_id}: {e}")
+            # Return a generic error to the frontend
             return jsonify({"error": f"Failed to fetch session {session_id}"}), 500
 
     @app.route('/api/sessions/<session_id>', methods=['PUT'])
     def rename_session(session_id):
         try:
             data = request.get_json()
-            new_title = data.get('title') if data else None
+            if not data:
+                return jsonify({"error": "Invalid JSON data"}), 400
+
+            new_title = data.get('title')
             # Access global variables
             from app import chat_sessions, save_chat_sessions
             result_data, status_code = rename_session_service(session_id, new_title, chat_sessions, save_chat_sessions)
@@ -146,6 +268,7 @@ def init_routes(app):
     def chat():
         try:
             data = request.get_json()
+            # --- Fixed Syntax Error ---
             if not data:
                 return jsonify({"error": "Invalid JSON data"}), 400
 
@@ -153,15 +276,17 @@ def init_routes(app):
             session_id = data.get('session_id')
             document_ids_filter = data.get('document_ids', None)
 
-            # Access global variables
+            # Access global variables needed by the service
             from app import rag_system, chat_sessions, save_chat_sessions
+
+            # --- Pass the new parameter to the service ---
             result_data, status_code = handle_chat_interaction_service(
                 message, session_id, document_ids_filter, rag_system, chat_sessions, save_chat_sessions
             )
             return jsonify(result_data), status_code
 
         except Exception as e:
-            current_app.logger.error(f"Chat Error: {e}", exc_info=True)
+            current_app.logger.error(f"Chat Error: {e}", exc_info=True) # Log full traceback
             return jsonify({"error": f"Failed to generate response: {str(e)}"}), 500
 
     @app.route('/api/models', methods=['GET'])
@@ -181,15 +306,12 @@ def init_routes(app):
             data = request.get_json()
             if not data:
                 return jsonify({"error": "Invalid JSON data"}), 400
-            new_model_name = data.get('model_name')
 
+            new_model_name = data.get('model_name')
             # Access global variables and classes
             from app import AVAILABLE_MODELS, rag_system, CURRENT_MODEL_NAME
             from utils.rag_system import RAGSystem # Import here for recreation
-
-            result_data, status_code = set_current_model_service(
-                new_model_name, AVAILABLE_MODELS, rag_system, RAGSystem, current_app.logger, CURRENT_MODEL_NAME
-            )
+            result_data, status_code = set_current_model_service(new_model_name, AVAILABLE_MODELS, rag_system, RAGSystem, current_app.logger, CURRENT_MODEL_NAME)
             # If the model was successfully changed, the service should update the global rag_system
             # We might need to signal back to app.py to update CURRENT_MODEL_NAME if the service doesn't do it directly
             # Or, the service could return the new CURRENT_MODEL_NAME
@@ -197,9 +319,7 @@ def init_routes(app):
                 # Update the global CURRENT_MODEL_NAME in app.py context
                 from app import update_current_model_name # Assume you add this helper to app.py
                 update_current_model_name(new_model_name) # Implement this function in app.py
-
             return jsonify(result_data), status_code
-
         except Exception as e:
             current_app.logger.error(f"Error setting model: {e}", exc_info=True)
             return jsonify({"error": f"Failed to set model: {str(e)}"}), 500
@@ -229,3 +349,5 @@ def init_routes(app):
         except Exception as e:
             current_app.logger.error(f"Error exporting chat for session {session_id}: {e}", exc_info=True)
             return jsonify({"error": f"Failed to export chat: {str(e)}"}), 500
+
+# --- End Route Definitions ---
